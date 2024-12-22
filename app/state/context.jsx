@@ -9,7 +9,7 @@ export function StateContextProvider({
 }) {
     const [state, dispatch] = useReducer(reducer, {}, init)
 
-    return <StateContext.Provider value={{state, dispatch}}>
+    return <StateContext.Provider value={{ state, dispatch }}>
         {children}
     </StateContext.Provider>
 }
