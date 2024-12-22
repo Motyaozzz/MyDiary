@@ -53,8 +53,12 @@ export function reducer(state, action) {
 export function init(initState) {
     const storedPassword = SecureStore.getItem('diaryPassword')
 
-    const isLogged = false
-    const isSigned = storedPassword !== null
+    // TODO: Remove it
+    // const isLogged = false
+    // const isSigned = storedPassword !== null
+
+    const isLogged = true
+    const isSigned = true
 
     return {
         notes: [],

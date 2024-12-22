@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { View, Text } from 'react-native'
+import { SvgUri } from "react-native-svg";
 
-function NoteContent({ content }) {
+export function NoteContent({ content }) {
     const [showAll, setShowAll] = useState(false)
 
     const preview = content.slice(0, 50)
@@ -33,14 +34,23 @@ function NoteContent({ content }) {
 export function OneNote({ note }) {
 
     return <View
-        className="bg-white p-4 mb-4 rounded-lg shadow-md w-full"
+        className="bg-white mb-4 rounded-lg shadow-md w-full flex flex-row"
     >
-        <Text className="text-2xl font-bold text-gray-800 mb-2">
-            {note.title}
-        </Text>
-        <NoteContent content={note.content} />
-        <Text className="text-sm text-gray-500">
-            {note.createdAt}
-        </Text>
+        <View className="w-4/5 ps-2 py-2">
+            <Text className="text-2xl font-bold text-gray-800 mb-2">
+                {note.title}
+            </Text>
+            <NoteContent content={note.content} />
+            <Text className="text-sm text-gray-500">
+                {note.createdAt}
+            </Text>
+        </View>
+        <View className="w-1/5 h-24 pe-2 py-2">
+            <SvgUri
+                width="100%"
+                height="100%"
+                uri={`https://api.dicebear.com/9.x/pixel-art/svg?seed=${note.avatar}`}
+            />
+        </View>
     </View>
 }

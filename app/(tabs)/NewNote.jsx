@@ -1,13 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, Alert, FlatList } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useState } from "react";
+import { Alert, Text, TextInput, View } from "react-native";
 
+import { Link } from "expo-router";
 import { CustomButton } from "../../components";
 
+const GeneralSeeds = [
+    'Felix',
+    'Aneka',
+    'John',
+    'Gonny',
+    'ZEROROEOSAR',
+    'Amina',
+    'Celly'
+]
+
+const getRandomSeed = () => {
+    const idx = Math.floor(Math.random() * GeneralSeeds.length)
+    return GeneralSeeds[idx]
+}
 
 const NewNote = ({ navigation }) => {
     const [note, setNote] = useState("");
+    const [avatar, setAvatar] = useState("")
 
     // Функция сохранения заметки
     const saveNote = async () => {
@@ -27,6 +42,7 @@ const NewNote = ({ navigation }) => {
                 title: note.split("\n")[0].slice(0, 15) || "Без заголовка",
                 content: note,
                 createdAt: new Date().toLocaleString(),
+                avatar: (avatar.trim() !== '') ? avatar : getRandomSeed()
             };
             notes.push(newNote);
 
@@ -35,6 +51,7 @@ const NewNote = ({ navigation }) => {
 
             // Очистка поля заметки и уведомление пользователя
             setNote("");
+            setAvatar("")
             Alert.alert("Успех", "Заметка успешно сохранена");
 
             // Перенаправление на другой экран (например, список заметок)
@@ -52,16 +69,34 @@ const NewNote = ({ navigation }) => {
             >
                 Создать запись
             </Text>
-            <TextInput
-                className="text-white h-4/5 mb-4"
-                placeholder="Введите текст заметки..."
-                multiline
-                value={note}
-                onChangeText={setNote}
-                style={{
-                    textAlignVertical: "top"
-                }}
-            />
+            <View
+                className="h-4/5 mb-4"
+            >
+                <TextInput
+                    className="text-white h-4/5 rounded-lg shadow-md"
+                    placeholder="Введите текст заметки..."
+                    placeholderTextColor="white"
+                    multiline
+                    value={note}
+                    onChangeText={setNote}
+                    style={{
+                        textAlignVertical: "top",
+                        color: 'white',
+                    }}
+                />
+                <TextInput
+                    className="text-white h-1/5 rounded-lg shadow-md"
+                    placeholder="Введите ключ для иконки (любое слово)..."
+                    placeholderTextColor="white"
+                    multiline
+                    value={avatar}
+                    onChangeText={setAvatar}
+                    style={{
+                        textAlignVertical: "top",
+                        color: 'white',
+                    }}
+                />
+            </View>
             <CustomButton
                 title='Сохранить'
                 handlePress={saveNote}
