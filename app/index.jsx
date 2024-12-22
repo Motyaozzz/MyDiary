@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Text, View, Image} from "react-native";
+import { Text, View, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Link } from "expo-router";
 import "../global.css";
@@ -21,7 +21,7 @@ function HomeScreen() {
             className="h-40 w-40"
         />
         <StatusBar style="auto" />
-        <Link 
+        <Link
             href="/MyDiaries"
             className='bg-secondary rounded-2xl flex flex-row justify-center items-center py-4 px-4 mt-7 text-primary font-pbold text-lg'
         >
@@ -30,7 +30,7 @@ function HomeScreen() {
     </View>
 }
 
-function AuthGuard({children}) {
+function AuthGuard({ children }) {
     const { state } = useStateContext()
 
     if (!state.isSigned) {
@@ -38,7 +38,7 @@ function AuthGuard({children}) {
     }
 
     if (!state.isLogged) {
-        return <SignIn/>
+        return <SignIn />
     }
 
     return children

@@ -3,11 +3,11 @@ import React from 'react'
 
 
 const AuthLayout = () => {
-  return (
-    <View>
-      <Text>AuthLayout</Text>
-    </View>
-  )
+    return (
+        <View>
+            <Text>AuthLayout</Text>
+        </View>
+    )
 }
 
 export default AuthLayout
