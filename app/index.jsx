@@ -10,10 +10,13 @@ import { SignUp } from './(auth)/sign-up'
 import { SignIn } from './(auth)/sign-in'
 
 import { CustomButton } from "../components";
+import { getNotificationPermissions, notificate } from './common';
+import { PushNotifications } from './exponot';
 
 function HomeScreen() {
     return <View className="flex-1 justify-center items-center">
-        <Text className="text-3xl text-center font-pblack color-orange-400">
+         <PushNotifications />
+         <Text className="text-3xl text-center font-pblack color-orange-400">
             MyDiary
         </Text>
         <Image

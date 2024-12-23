@@ -1,33 +1,38 @@
 {
   "expo": {
     "name": "MyDiary",
-    "slug": "MyDiary",
+    "slug": "diary",
     "version": "1.0.0",
     "orientation": "portrait",
-   //  "icon": "./assets/images/icon.png",
     "scheme": "MyDiary",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "projectId": "a2f1b88d-eeb1-4b67-94d3-5a12bd08658e",
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-      //   "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
       "bundler": "metro",
-      "output": "static",
-      // "favicon": "./assets/images/favicon.png"
+      "output": "static"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c414bdc7-f3c8-4668-9ce8-76196e5d0077"
+      },
+      "router": {
+        "origin": false
+      }
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-         //  "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
@@ -37,6 +42,7 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "owner": "motyaozzz"
   }
 }
