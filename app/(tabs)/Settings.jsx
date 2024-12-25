@@ -1,10 +1,10 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Linking } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
 import rncomm from 'react-native-communications'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const PHONE = '88005553535'
+const PHONE = '89202618810'
 const MAIL = 'mikrozaim-ochen-bistro@mail.ru'
 
 const Settings = () => {
@@ -53,6 +53,7 @@ const Settings = () => {
 
     const onCall = () => {
         rncomm.phonecall(PHONE, false)
+        Linking.openURL(`tel:${PHONE}`);
     }
 
     const onSMS = () => {
@@ -67,8 +68,8 @@ const Settings = () => {
 
     return (
         <View className="bg-primary h-full w-full px-4 py-8 bg-gr">
-            <Text className="text-2xl font-pextrabold text-white mb-4 items-center text-center">
-                Settings
+            <Text className="text-2xl font-pextrabold text-white mb-4 pt-7 items-center text-center">
+                Настройки
             </Text>
             {
                 fail && <Text className='text-red-600 text-2xl'>{fail}</Text>

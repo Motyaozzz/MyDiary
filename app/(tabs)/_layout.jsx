@@ -16,22 +16,36 @@ const TabIcon = ({ icon, color, name, focused }) => {
     )
 }
 
+
 const TabsLayout = () => {
     return (
-        <Tabs className="text-3xl text-center">
+         <Tabs
+         screenOptions={{
+         headerShown: false,
+         tabBarActiveTintColor: '#FF9C01',
+         headerStyle: {
+            backgroundColor: '#fff',
+         },
+         // headerShadowVisible: false,
+         headerTintColor: '#fff',
+         tabBarStyle: {
+         backgroundColor: '#25292e',
+         },
+         }}
+         >
             <Tabs.Screen
                 name="MyDiaries"
                 options={{
                     title: "MyDiary",
                     headerShown: false,
+                    display: 'none',
+                    headerBackVisible: false,
+                    unmountOnBlur: true,
                     tabBarIcon: ({ color, focused }) => (
                         <TabIcon
                             icon={require('../../assets/icons/diary.png')}
                         />
                     ),
-                    options: {
-                        unmountOnBlur: true
-                    },
                 }}
             />
             <Tabs.Screen
@@ -39,6 +53,7 @@ const TabsLayout = () => {
                 options={{
                     title: "NewNote",
                     headerShown: false,
+                    headerBackVisible: false,
                     tabBarIcon: ({ color, focused }) => (
                         <TabIcon
                             icon={require('../../assets/icons/note.png')}
@@ -51,6 +66,7 @@ const TabsLayout = () => {
                 options={{
                     title: "Profile",
                     headerShown: false,
+                    headerBackVisible: false,
                     tabBarIcon: ({ color, focused }) => (
                         <TabIcon
                             icon={require('../../assets/icons/profile.png')}
@@ -63,6 +79,7 @@ const TabsLayout = () => {
                 options={{
                     title: "Settings",
                     headerShown: false,
+                    headerBackVisible: false,
                     tabBarIcon: ({ color, focused }) => (
                         <TabIcon
                             icon={require('../../assets/icons/settings.png')}

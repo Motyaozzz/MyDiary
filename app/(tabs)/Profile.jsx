@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native'
 import React, { useState, useEffect } from 'react'
 
 import { CustomButton } from '../../components'
@@ -51,15 +51,42 @@ const ProfileForm = ({
         try {
             const json = JSON.stringify(profile)
             await AsyncStorage.setItem("profile", json)
+
         } catch (e) {
             setFail(e.message)
         }
         setLoading(false)
+        Alert.alert("Успех", "Данные профиля сохранены");
     }
 
     return <View className="bg-primary h-full w-full px-4 py-8 bg-gr">
-        <Text className="color-white text-center text-3xl font-pbold">Profile</Text>
+        <Text className="text-2xl font-pextrabold text-white mb-4 pt-7 items-center text-center">Профиль</Text>
 
+        {/* <Text className='font-pmedium text-white mb-2 pt-7'>
+         Имя
+        </Text>
+        <View className="bg-white w-full rounded-md border">
+            <TextInput 
+            placeholder="Введите имя..."
+            placeholderTextColor="gray"
+            disabled={loading}
+            value={profile.firstName}
+            onChange={(value) => setProfile(prev => ({ ...prev, firstName: value }))}
+            />
+        </View>
+
+        <Text className='font-pmedium text-white mb-2 pt-7'>
+         Фамилия
+        </Text>
+        <View className="bg-white w-full rounded-md border mb-6">
+            <TextInput 
+            placeholder="Введите фамилию..."
+            placeholderTextColor="gray"
+            disabled={loading}
+            value={profile.lastName}
+            onChange={(value) => setProfile(prev => ({ ...prev, lastName: value }))}
+            />
+        </View> */}
         <Input
             disabled={loading}
             className='my-5'
@@ -74,7 +101,7 @@ const ProfileForm = ({
             value={profile.lastName}
             onChange={(value) => setProfile(prev => ({ ...prev, lastName: value }))}
         />
-        <CustomButton
+        <CustomButton 
             title='Сохранить'
             handlePress={onEditProfile}
             isLoading={loading}
@@ -99,6 +126,7 @@ const Profile = () => {
         } catch (e) {
             setProfile({ ...DefaultProfile })
         }
+        console.log(json)
     }
 
     useEffect(() => {

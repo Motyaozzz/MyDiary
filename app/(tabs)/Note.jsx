@@ -1,20 +1,19 @@
 import { useState } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Image, StyleSheet } from 'react-native'
 import { SvgUri } from "react-native-svg";
 
 export function NoteContent({ content }) {
     const [showAll, setShowAll] = useState(false)
 
     const preview = content.slice(0, 50)
-    const canOpen = content.length > preview.length
+    const canOpen = content.length > preview.length;
 
     const onToggle = () => {
-        if (!canOpen) {
-            return
-        }
-
+        if (!canOpen) return
         setShowAll(prev => !prev)
     }
+   //  console.log(showAll)
+
 
     return <>
         <Text className="text-gray-700 w-4/5">
@@ -41,6 +40,11 @@ export function OneNote({ note }) {
                 {note.title}
             </Text>
             <NoteContent content={note.content} />
+               {note.image && Array.isArray(note.image) && note.image.length > 0 ? (
+                  note.image.map((uri, index) => (
+                     <Image key={index} source={{ uri }} style={styles.image} />
+                  ))
+               ) : null}
             <Text className="text-sm text-gray-500">
                 {note.createdAt}
             </Text>
@@ -54,3 +58,10 @@ export function OneNote({ note }) {
         </View>
     </View>
 }
+
+const styles = StyleSheet.create({
+   image: {
+     width: '100%',
+     height: 200,
+   },
+ });
