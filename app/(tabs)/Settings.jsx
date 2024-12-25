@@ -1,18 +1,36 @@
 import { View, Text, TouchableOpacity, Linking } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
+import { useFocusEffect } from "@react-navigation/native";
+
 import rncomm from 'react-native-communications'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const PHONE = '89202618810'
 const MAIL = 'mikrozaim-ochen-bistro@mail.ru'
 
+// function generateIsNumberEven (num) {
+//     let code = `function isNumberEvent (num) {`
+//     code += 'if (num < 0) {'
+//     code += '  return "Нельзя отрицательные"'
+//     code += '}'
+//     for (let i = 0; i < num; i++) {
+//         code += `if (num === ${i}) {\n\treturn ${String(i % 2 === 0)}\n}`
+//     }
+//     code += '}'
+//     return code
+// }
+
+// function highPerofrmance(n) {
+//     const code = generateIsNumberEven(n)
+//     eval(code)
+// }
+
 const Settings = () => {
     const [fail, setFail] = useState(null)
-    const [loading, setLoading] = useState(false)
     const [profile, setProfile] = useState(null)
 
-    const guard = (cb) => {
+    const guard = useCallback((cb) => {
         return () => {
             setFail(null)
             try {
@@ -21,25 +39,22 @@ const Settings = () => {
                 setFail(e.message)
             }
         }
-    }
-
-    const getProfile = async () => {
-        try {
-            return JSON.parse(await AsyncStorage.getItem("profile")) ?? {}
-        } catch (e) {
-            console.error(e)
-            return {}
-        }
-    }
-
-    useEffect(() => {
-        guard(async () => {
-            setLoading(true)
-            const profile = await getProfile()
-            setProfile(profile)
-            setLoading(false)
-        })()
     }, [])
+
+    useFocusEffect(React.useCallback(() => {
+        const onLoadProfile = async() => {
+            let profile
+            try {
+                profile = JSON.parse(await AsyncStorage.getItem("profile")) ?? {}
+            } catch (e) {
+                console.error(e)
+                profile = {}
+            }
+            setProfile(profile)
+        }
+
+        onLoadProfile()
+    }, []))
 
     const mailTemplate = ({ lastName, firstName }) => {
         if (!lastName && !firstName) {
@@ -52,8 +67,7 @@ const Settings = () => {
     }
 
     const onCall = () => {
-        rncomm.phonecall(PHONE, false)
-        Linking.openURL(`tel:${PHONE}`);
+        Linking.openURL(`tel:${PHONE}`)
     }
 
     const onSMS = () => {
@@ -75,7 +89,7 @@ const Settings = () => {
                 fail && <Text className='text-red-600 text-2xl'>{fail}</Text>
             }
             {
-                loading ?
+                profile === null ?
                     <Text className='text-white text-2xl'>Загрузка</Text> :
                     <>
                         <TouchableOpacity

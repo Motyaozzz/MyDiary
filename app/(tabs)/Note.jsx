@@ -2,23 +2,45 @@ import { useState } from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 import { SvgUri } from "react-native-svg";
 
-export function NoteContent({ content }) {
+function Images({images, isOpen}) {
+    if (!images || !Array.isArray(images) || images.length === 0) {
+        return null
+    }
+
+    if (!isOpen) {
+        return <Text>В заметке {images.length} изображений</Text>
+    }
+
+    return images.map((uri, index) => (
+        <Image key={index} source={{ uri }} style={styles.image} />
+    ))
+}
+
+export function NoteContent({ note }) {
     const [showAll, setShowAll] = useState(false)
 
+    const content = note.content
+
     const preview = content.slice(0, 50)
-    const canOpen = content.length > preview.length;
+    const canOpen = content.length > preview.length || (note.image?.length ?? 0) !== 0
 
     const onToggle = () => {
-        if (!canOpen) return
+        if (!canOpen) {
+            return
+        }
         setShowAll(prev => !prev)
     }
-   //  console.log(showAll)
-
 
     return <>
         <Text className="text-gray-700 w-4/5">
-            {showAll ? content : preview + (canOpen ? '...' : '')}
+            {
+                showAll ? // Если showAll = true
+                    content : // То показываем весь контент
+                    preview + (canOpen ? '...' : '') // Иначе показываем первые 50 символов из текста 
+                    // + (если в тексте изначально <= 50 символов - без троеточия, иначе с троеточием)
+            }
         </Text>
+        <Images images={note.image} isOpen={showAll} />
         {
             canOpen && <Text
                 className="mb-2 font-psemibold color-blue-800"
@@ -39,12 +61,7 @@ export function OneNote({ note }) {
             <Text className="text-2xl font-bold text-gray-800 mb-2">
                 {note.title}
             </Text>
-            <NoteContent content={note.content} />
-               {note.image && Array.isArray(note.image) && note.image.length > 0 ? (
-                  note.image.map((uri, index) => (
-                     <Image key={index} source={{ uri }} style={styles.image} />
-                  ))
-               ) : null}
+            <NoteContent note={note} />
             <Text className="text-sm text-gray-500">
                 {note.createdAt}
             </Text>

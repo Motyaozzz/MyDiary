@@ -1,5 +1,6 @@
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native'
 import React, { useState, useEffect } from 'react'
+import { useFocusEffect } from "@react-navigation/native";
 
 import { CustomButton } from '../../components'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -126,12 +127,11 @@ const Profile = () => {
         } catch (e) {
             setProfile({ ...DefaultProfile })
         }
-        console.log(json)
     }
 
-    useEffect(() => {
+    useFocusEffect(React.useCallback(() => {
         onLoadProfile()
-    }, [])
+    }, []))
 
     if (profile === null) {
         return <Text>Загрузка профиля...</Text>

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Alert, Animated, Dimensions, StyleSheet, Text, View } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { Alert, Animated, Dimensions, StyleSheet, Text, View , TextInput} from 'react-native';
 
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -8,17 +8,39 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 import '../(tabs)/NewNote';
 import '../../global.css';
 import { NoteContent, OneNote } from './Note';
-import { SvgUri } from 'react-native-svg';
 
 const MyDiaries = () => {
-    const [notes, setNotes] = useState([]);
+    const [notes, setNotes] = useState([])
+    const [search, setSearch] = useState('')
+
+    /**
+     * @param {Record<string, string>} note
+     * @example
+     * const search = 'ToDay'
+     * const result = notePredicate({content: 'My Day is VEry gooD, toDAY i am'})
+     * 
+     * console.log(result) // true
+     */
+    const notePredicate = (note) => {
+        // Вытаскиваешь content и дату создания
+        const {
+            content,
+            createdAt,
+        } = note
+
+        // Приводишь все к нижнему регистру
+        const normalizedQuery = search.toLowerCase()
+        const normalizedContent = content.toLowerCase() + createdAt.toLowerCase()
+
+        // Проверяешь есть ли вхождение поиска в заметке
+        return normalizedContent.includes(normalizedQuery)
+    }
 
     // Функция загрузки заметок
     const loadNotes = async () => {
         try {
             const storedNotes = await AsyncStorage.getItem("notes");
             const parsedNotes = storedNotes ? JSON.parse(storedNotes) : [];
-            
             setNotes(parsedNotes);
         } catch (error) {
             Alert.alert("Ошибка", "Не удалось загрузить заметки");
@@ -76,19 +98,50 @@ const MyDiaries = () => {
         </View>
     )
 
+    const filtered = notes.filter(notePredicate) // Для оптимизации можно положить в 
+    // useMemo(() => ..., [search, notes.length])
+
+    const isEmpty = filtered.length === 0
+
+    /**
+     * !Погуглить:
+     * 
+     * !Virtual Scroll
+     * !Виртуальный скролл
+     * 
+     * !Prompt - 'виртуальный скроллинг в SwipeListView в ReactNative'
+     * 
+     * * Примеры:
+     * * FixedSizeList(React)
+     */
+
     return (
         <View className="bg-primary h-full w-full flex justify-center px-4 py-10 items-center flex-1">
             <Text className="text-2xl font-pextrabold text-white mb-4 pt-7 text-center">Мои записи</Text>
-            <SwipeListView
-                disableRightSwipe
-                className="w-full h-full px-4"
-                rightOpenValue={-70}
-                data={notes}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => <OneNote note={item} />}
-                renderHiddenItem={renderHiddenItem}
-                onSwipeValueChange={onSwipeValueChange}
+            <TextInput
+                className='color-white'
+                placeholder="Введите для поиска..."
+                placeholderTextColor="gray"
+                value={search}
+                onChangeText={setSearch}
             />
+            {
+                isEmpty ? 
+                    <Text className='text-2xl font-pextrabold text-white'>Нет заметок</Text> :
+                    <SwipeListView
+                        disableRightSwipe
+                        recalculateHiddenLayout
+                        className="w-full h-full px-4"
+                        rightOpenValue={-70}
+                        data={filtered}
+                        keyExtractor={(item) => item.id}
+                        renderItem={({ item, index }) => <OneNote
+                            note={item} 
+                        />}
+                        renderHiddenItem={renderHiddenItem}
+                        onSwipeValueChange={onSwipeValueChange}
+                    />
+            }
         </View>
     );
 };

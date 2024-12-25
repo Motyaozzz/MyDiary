@@ -30,7 +30,7 @@ export const SignIn = () => {
     }
 
     return <View className="bg-primary h-full w-full flex justify-center px-4 items-center">
-        <Text className="text-2xl font-pextrabold text-white mt-10 items-center text-center">Авторизация</Text>
+        <Text className="text-2xl font-pextrabold text-white my-10 items-center text-center">Авторизация</Text>
         <Image
             source={require("../../assets/images/diary-main.png")}
             resizeMode="contain"
