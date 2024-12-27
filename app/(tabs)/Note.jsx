@@ -8,7 +8,7 @@ function Images({images, isOpen}) {
     }
 
     if (!isOpen) {
-        return <Text>В заметке {images.length} изображений</Text>
+        return <Text className="my-2 font-pbold">Количество изображений в заметке: {images.length}</Text>
     }
 
     return images.map((uri, index) => (

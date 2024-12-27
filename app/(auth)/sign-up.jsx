@@ -29,13 +29,13 @@ export const SignUp = () => {
                     style={{
                         minHeight: Dimensions.get("window").height - 100,
                     }}>
+                    <Text className="text-2xl font-pextrabold text-white my-10 items-center text-center">Welcome to MyDiary</Text>
 
                     <Image
                         source={require("../../assets/images/diary-main.png")}
                         resizeMode="contain"
                         className="w-[115px] h-[115px]"
                     />
-                    <Text className="text-2xl font-pextrabold text-white mt-10 items-center text-center">Welcome to MyDiary</Text>
 
                     <View className="w-full h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 focus:border-secondary flex flex-row items-center mt-7">
                         <TextInput

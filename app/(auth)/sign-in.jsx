@@ -41,6 +41,7 @@ export const SignIn = () => {
                 className="flex-1 text-white font-pbold text-base"
                 secureTextEntry
                 placeholder="Пароль"
+                placeholderTextColor="#7B7B8B"
                 value={password}
                 onChangeText={setPassword}
             />
@@ -55,10 +56,10 @@ export const SignIn = () => {
             containerStyles="mt-7"
             isLoading={false}
         />
-        <Button
+        {/* <Button
             title='Сброс пароля'
             mode="contained"
             onPress={resetPass}
-        />
+        /> */}
     </View>
 }

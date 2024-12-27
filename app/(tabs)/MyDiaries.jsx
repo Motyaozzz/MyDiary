@@ -22,17 +22,17 @@ const MyDiaries = () => {
      * console.log(result) // true
      */
     const notePredicate = (note) => {
-        // Вытаскиваешь content и дату создания
+        // Вытаскиваем content и дату создания
         const {
             content,
             createdAt,
         } = note
 
-        // Приводишь все к нижнему регистру
+        // Приводим все к нижнему регистру
         const normalizedQuery = search.toLowerCase()
         const normalizedContent = content.toLowerCase() + createdAt.toLowerCase()
 
-        // Проверяешь есть ли вхождение поиска в заметке
+        // Проверяем есть ли вхождение поиска в заметке
         return normalizedContent.includes(normalizedQuery)
     }
 
@@ -117,14 +117,17 @@ const MyDiaries = () => {
 
     return (
         <View className="bg-primary h-full w-full flex justify-center px-4 py-10 items-center flex-1">
-            <Text className="text-2xl font-pextrabold text-white mb-4 pt-7 text-center">Мои записи</Text>
-            <TextInput
-                className='color-white'
-                placeholder="Введите для поиска..."
-                placeholderTextColor="gray"
-                value={search}
-                onChangeText={setSearch}
-            />
+            <Text className="text-2xl font-pextrabold text-white mb-4 pt-4 text-center">Мои записи</Text>
+            
+            <View className="p-1 bg-primary border-solid border-2 border-secondary rounded-lg mb-4">
+               <TextInput
+                  className='color-white mx-4 py-0 font-psemibold'
+                  placeholder="Введите для поиска..."
+                  placeholderTextColor="gray"
+                  value={search}
+                  onChangeText={setSearch}
+               />
+            </View>
             {
                 isEmpty ? 
                     <Text className='text-2xl font-pextrabold text-white'>Нет заметок</Text> :
