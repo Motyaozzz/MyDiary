@@ -5,6 +5,7 @@ import { View, Text, Button, ScrollView, Dimensions, TextInput, Image } from 're
 import { CustomButton } from "../../components";
 import { useStateContext } from '../state/context'
 
+import { SvgUri } from "react-native-svg";
 
 export const SignUp = () => {
     const { dispatch, state } = useStateContext()
@@ -35,6 +36,10 @@ export const SignUp = () => {
                         source={require("../../assets/images/diary-main.png")}
                         resizeMode="contain"
                         className="w-[115px] h-[115px]"
+                    />
+                    <SvgUri
+                    source={require("../../assets/images/diary.svg")}
+                    uri={require("../../assets/images/diary.svg")}
                     />
 
                     <View className="w-full h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 focus:border-secondary flex flex-row items-center mt-7">

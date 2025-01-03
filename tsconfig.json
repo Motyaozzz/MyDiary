@@ -8,5 +8,5 @@
     "expo-env.d.ts",
     "app/landModel.js",
     "nativewind-env.d.ts"
-  ]
+, "app/utils/sound.tsx"  ]
 }

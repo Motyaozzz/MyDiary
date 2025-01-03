@@ -2,6 +2,7 @@ import { SplashScreen, Stack } from 'expo-router'
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
 import "../global.css"
+import { StateContextProvider } from './state/context';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -31,17 +32,12 @@ const RootLayout = () => {
         return null;
     }
     return (
-        <Stack>
+      <StateContextProvider>
+         <Stack>
             <Stack.Screen name="index" options={{ headerShown: false}} />
             <Stack.Screen name="(tabs)" options={{ headerShown: false}} />
-            <Stack.Screen
-               name="modal"
-               options={{
-                  presentation: 'modal',
-                  headerShown: false,
-               }}
-            />
         </Stack>
+      </StateContextProvider>
     )
 }
 

@@ -7,6 +7,9 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Notifications from 'expo-notifications';
 import { CustomButton } from "../../components";
 
+// import { areNotificationsEnabled } from '../exponot';
+
+
 const GeneralSeeds = [
    'Felix',
    'Aneka',
@@ -44,7 +47,6 @@ const NewNote = ({ navigation }) => {
    const pickImage = async () => {
       // Запрашиваем разрешения на доступ к галерее
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      console.log(status)
       if (status !== 'granted') {
          Alert.alert('Permission Denied', 'We need access to your gallery to pick images.');
          return;
@@ -60,7 +62,7 @@ const NewNote = ({ navigation }) => {
          setImages((prevImages) => [...prevImages, result.assets[0].uri]);
       }
    };
-  
+
    // Функция сохранения заметки
    const saveNote = async () => {
       try {
@@ -99,7 +101,7 @@ const NewNote = ({ navigation }) => {
                body: "Поздравляем с новой заметкой!",
             },
             trigger: null,
-         });
+         })
 
          // Перенаправление на другой экран (например, список заметок)
          if (navigation) navigation.navigate("MyDiaries");
@@ -185,36 +187,36 @@ const NewNote = ({ navigation }) => {
 
 const styles = StyleSheet.create({
    container: {
-     flex: 1,
-     justifyContent: 'center',
-     alignItems: 'center',
-     backgroundColor: '#f5f5f5',
+   flex: 1,
+   justifyContent: 'center',
+   alignItems: 'center',
+   backgroundColor: '#f5f5f5',
    },
    textInputContainer: {
-     width: '100%',
-     borderWidth: 1,
-     borderColor: '#ccc',
-     borderRadius: 5,
-     overflow: 'hidden',
-     backgroundColor: '#fff',
+   width: '100%',
+   borderWidth: 1,
+   borderColor: '#ccc',
+   borderRadius: 5,
+   overflow: 'hidden',
+   backgroundColor: '#fff',
    },
    textInput: {
-     flex: 1,
-     padding: 10,
-     textAlignVertical: 'top',
+   flex: 1,
+   padding: 10,
+   textAlignVertical: 'top',
    },
    resizer: {
-     height: 20,
-     backgroundColor: 'rgba(0, 0, 0, 0.1)',
-     borderTopWidth: 1,
-     borderColor: '#ccc',
+   height: 20,
+   backgroundColor: 'rgba(0, 0, 0, 0.1)',
+   borderTopWidth: 1,
+   borderColor: '#ccc',
    },
    image: {
-     width: 250,
-     height: 150,
-     marginVertical: 10,
-     borderRadius: 5,
+   width: 250,
+   height: 150,
+   marginVertical: 10,
+   borderRadius: 5,
    },
- });
- 
+});
+
 export default NewNote

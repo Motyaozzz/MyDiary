@@ -6,67 +6,82 @@ import { CustomButton } from '../../components'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function Input({
-    label,
-    value,
-    onChange,
-    className = '',
-    disabled = false
+   label,
+   value,
+   onChange,
+   className = '',
+   disabled = false
 }) {
 
-    const resolvedClassName = [className, 'w-100'].join(' ')
+   const resolvedClassName = [className, 'w-100'].join(' ')
 
-    const inputClassNames = ['color-black']
-    if (disabled) {
-        inputClassNames.push('bg-gray-100')
-    } else {
-        inputClassNames.push('bg-white')
-    }
+   const inputClassNames = ['color-black']
+   if (disabled) {
+      inputClassNames.push('bg-gray-100')
+   } else {
+      inputClassNames.push('bg-white')
+   }
 
-    return <View className={resolvedClassName}>
-        <Text className='color-white mb-1'>{label}</Text>
-        <TextInput
+   return <View className={resolvedClassName}>
+      <Text className='color-white mb-1'>{label}</Text>
+      <TextInput
             editable={!disabled}
             className={inputClassNames.join(' ')}
             value={value}
             onChangeText={onChange}
             placeholder={'Не заполнено'}
-        />
-    </View>
+      />
+   </View>
 }
 
 const DefaultProfile = {
-    firstName: '',
-    lastName: ''
+   firstName: '',
+   lastName: ''
 }
 
 const ProfileForm = ({
-    initProfile,
+   initProfile,
 }) => {
-    const [fail, setFail] = useState(null)
-    const [loading, setLoading] = useState(false)
-    const [profile, setProfile] = useState({ ...initProfile })
+   const [fail, setFail] = useState(null)
+   const [loading, setLoading] = useState(false)
+   const [loading_del, setLoading_del] = useState(false)
+   const [profile, setProfile] = useState({ ...initProfile })
 
-    const onEditProfile = async () => {
-        setFail(null)
-        setLoading(true)
-        try {
+   const onEditProfile = async () => {
+      setFail(null)
+      setLoading(true)
+      try {
             const json = JSON.stringify(profile)
             await AsyncStorage.setItem("profile", json)
 
-        } catch (e) {
+      } catch (e) {
             setFail(e.message)
-        }
-        setLoading(false)
-        Alert.alert("Успех", "Данные профиля сохранены");
-    }
+      }
+      setLoading(false)
+      Alert.alert("Успех", "Данные профиля сохранены");
+   }
 
-    return <View className="bg-primary h-full w-full px-4 py-8 bg-gr">
-        <Text className="text-2xl font-pextrabold text-white mb-4 pt-7 items-center text-center">Профиль</Text>
+   const onDeleteProfile = async () => {
+      setFail(null)
+      setLoading_del(true)
+      try {
+            await AsyncStorage.removeItem("profile")
 
-        {/* <Text className='font-pmedium text-white mb-2 pt-7'>
+      } catch (e) {
+            setFail(e.message)
+      }
+      setLoading_del(false)
+      setProfile({ ...DefaultProfile })
+      Alert.alert("Успех", "Данные профиля сброшены");
+   }
+
+   return <View className="bg-primary h-full w-full px-4 py-8 bg-gr">
+      <Text className="text-2xl font-pextrabold text-white mb-4 pt-7 items-center text-center">Профиль</Text>
+
+      {/* <Text className='font-pmedium text-white mb-2 pt-7'>
          Имя
-        </Text>
-        <View className="bg-white w-full rounded-md border">
+      </Text>
+      <View className="bg-white w-full rounded-md border">
             <TextInput 
             placeholder="Введите имя..."
             placeholderTextColor="gray"
@@ -74,12 +89,12 @@ const ProfileForm = ({
             value={profile.firstName}
             onChange={(value) => setProfile(prev => ({ ...prev, firstName: value }))}
             />
-        </View>
+      </View>
 
-        <Text className='font-pmedium text-white mb-2 pt-7'>
+      <Text className='font-pmedium text-white mb-2 pt-7'>
          Фамилия
-        </Text>
-        <View className="bg-white w-full rounded-md border mb-6">
+      </Text>
+      <View className="bg-white w-full rounded-md border mb-6">
             <TextInput 
             placeholder="Введите фамилию..."
             placeholderTextColor="gray"
@@ -87,59 +102,65 @@ const ProfileForm = ({
             value={profile.lastName}
             onChange={(value) => setProfile(prev => ({ ...prev, lastName: value }))}
             />
-        </View> */}
-        <Input
+      </View> */}
+      <Input
             disabled={loading}
             className='my-5'
             label='Имя'
             value={profile.firstName}
             onChange={(value) => setProfile(prev => ({ ...prev, firstName: value }))}
-        />
-        <Input
+      />
+      <Input
             disabled={loading}
             className='my-5'
             label='Фамилия'
             value={profile.lastName}
             onChange={(value) => setProfile(prev => ({ ...prev, lastName: value }))}
-        />
-        <CustomButton 
+      />
+      <CustomButton 
             title='Сохранить'
             handlePress={onEditProfile}
             isLoading={loading}
-        />
-        {
+            containerStyles="mb-5"
+      />
+      <CustomButton 
+            title='Сбросить данные профиля'
+            handlePress={onDeleteProfile}
+            isLoading={loading_del}
+      />
+      {
             fail && <Text className='color-red-500'>{fail}</Text>
-        }
-    </View>
+      }
+   </View>
 }
 
 const Profile = () => {
-    const [profile, setProfile] = useState(null)
+   const [profile, setProfile] = useState(null)
 
-    const onLoadProfile = async () => {
-        try {
+   const onLoadProfile = async () => {
+      try {
             const json = await AsyncStorage.getItem("profile")
             let loaded = JSON.parse(json)
             if (loaded === null) {
-                loaded = { ...DefaultProfile }
+               loaded = { ...DefaultProfile }
             }
             setProfile(loaded)
-        } catch (e) {
+      } catch (e) {
             setProfile({ ...DefaultProfile })
-        }
-    }
+      }
+   }
 
-    useFocusEffect(React.useCallback(() => {
-        onLoadProfile()
-    }, []))
+      useFocusEffect(React.useCallback(() => {
+         onLoadProfile()
+      }, []))
 
-    if (profile === null) {
-        return <Text>Загрузка профиля...</Text>
-    }
+   if (profile === null) {
+      return <Text>Загрузка профиля...</Text>
+   }
 
-    return <ProfileForm
-        initProfile={profile}
-    />
+   return <ProfileForm
+      initProfile={profile}
+   />
 }
 
 export default Profile

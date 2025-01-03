@@ -4,9 +4,10 @@ import Notifications from "expo-notifications";
  * @param {string} styleName
  * @returns {Promise<SVGElement>}
  */
+
 export async function getRandomAvatar(styleName = "pixel-art") {
-  const api = `https://api.dicebear.com/9.x/${styleName}/svg`;
-  return await getAvatar(api);
+const api = `https://api.dicebear.com/9.x/${styleName}/svg`;
+return await getAvatar(api);
 }
 
 /**
@@ -14,33 +15,23 @@ export async function getRandomAvatar(styleName = "pixel-art") {
  * @returns {Promise<SVGElement>}
  */
 export async function getAvatar(api) {
-  const response = await fetch(api);
+const response = await fetch(api);
 
-  if (response.status !== 200) {
-    throw new Error("Non-200 status code returned");
-  }
+if (response.status !== 200) {
+   throw new Error("Non-200 status code returned");
+}
 
-  return response.body;
+return response.body;
 }
 
 async function requestNotificationPermissions() {
-  return await Notifications.requestPermissionsAsync();
+return await Notifications.requestPermissionsAsync();
 }
 
 export async function getNotificationPermissions() {
-  let permissions = await Notifications.getPermissionsAsync();
-  if (permissions.status !== "granted") {
-    permissions = await requestNotificationPermissions();
-  }
-  return permissions.status === "granted";
+let permissions = await Notifications.getPermissionsAsync();
+if (permissions.status !== "granted") {
+   permissions = await requestNotificationPermissions();
 }
-
-export async function notificate() {
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: "Посмотрите свои заметки",
-      body: "Вы ооооооооооооооооооооооочень давно не заходили в заметки",
-    },
-    trigger: { seconds: 1 },
-  });
+return permissions.status === "granted";
 }

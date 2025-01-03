@@ -5,7 +5,7 @@ import { useStateContext } from '../state/context'
 import * as SecureStore from "expo-secure-store";
 import { CustomButton } from "../../components";
 
-
+import { SvgUri } from "react-native-svg";
 
 export const SignIn = () => {
     const { dispatch, state } = useStateContext()
@@ -36,6 +36,13 @@ export const SignIn = () => {
             resizeMode="contain"
             className="w-[115px] h-[115px]"
         />
+         {/* <SvgUri
+         // source={require("../../assets/images/diary.svg")}
+         uri={`https://www.svgrepo.com/svg/498257/note-text`}
+         className="h-[115px] w-[115px]"
+         height='10%'
+         width='10%'
+         /> */}
         <SafeAreaView className="w-full h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 focus:border-secondary flex flex-row items-center mt-7">
             <TextInput
                 className="flex-1 text-white font-pbold text-base"

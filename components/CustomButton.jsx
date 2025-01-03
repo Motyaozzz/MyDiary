@@ -2,13 +2,13 @@ import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import "../global.css"
 
 const CustomButton = ({
-  title,
-  handlePress,
-  containerStyles,
-  textStyles,
-  isLoading,
+title,
+handlePress,
+containerStyles,
+textStyles,
+isLoading,
 }) => {
-  return (
+return (
    <View 
    >
       <TouchableOpacity
@@ -33,7 +33,7 @@ const CustomButton = ({
          )}
       </TouchableOpacity>
    </View>
-  );
+);
 };
 
 export default CustomButton;

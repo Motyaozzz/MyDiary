@@ -1,48 +1,49 @@
 {
-  "expo": {
-    "name": "MyDiary",
-    "slug": "diary",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "scheme": "MyDiary",
-    "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "projectId": "a2f1b88d-eeb1-4b67-94d3-5a12bd08658e",
-    "ios": {
+"expo": {
+   "name": "MyDiary",
+   "slug": "diary",
+   "version": "1.0.0",
+   "orientation": "portrait",
+   "scheme": "MyDiary",
+   "userInterfaceStyle": "automatic",
+   "newArchEnabled": true,
+   "projectId": "a2f1b88d-eeb1-4b67-94d3-5a12bd08658e",
+   "ios": {
       "supportsTablet": true
-    },
-    "android": {
+   },
+   "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#ffffff"
-      }
-    },
-    "web": {
+      "backgroundColor": "#ffffff"
+      },
+      "permissions": ["INTERNET", "CAMERA", "ACCESS_FINE_LOCATION"]
+   },
+   "web": {
       "bundler": "metro",
       "output": "static"
-    },
-    "extra": {
+   },
+   "extra": {
       "eas": {
-        "projectId": "c414bdc7-f3c8-4668-9ce8-76196e5d0077"
+      "projectId": "c414bdc7-f3c8-4668-9ce8-76196e5d0077"
       },
       "router": {
-        "origin": false
+      "origin": false
       }
-    },
-    "plugins": [
+   },
+   "plugins": [
       "expo-router",
       [
-        "expo-splash-screen",
-        {
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
-        }
+      "expo-splash-screen",
+      {
+         "imageWidth": 200,
+         "resizeMode": "contain",
+         "backgroundColor": "#ffffff"
+      }
       ],
       "expo-secure-store"
-    ],
-    "experiments": {
+   ],
+   "experiments": {
       "typedRoutes": true
-    },
-    "owner": "motyaozzz"
-  }
+   },
+   "owner": "motyaozzz"
+}
 }
