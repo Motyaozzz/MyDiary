@@ -1,72 +1,56 @@
 import React, { useState } from 'react'
-import { View, Text, Button, TextInput, SafeAreaView, Image } from 'react-native'
+import { View, Text, TextInput, SafeAreaView, Image } from 'react-native'
 
 import { useStateContext } from '../state/context'
 import * as SecureStore from "expo-secure-store";
 import { CustomButton } from "../../components";
 
-import { SvgUri } from "react-native-svg";
-
 export const SignIn = () => {
-    const { dispatch, state } = useStateContext()
-    const [password, setPassword] = useState('')
+   const { dispatch, state } = useStateContext()
+   const [password, setPassword] = useState('')
 
-    const onSubmit = async () => {
-        setPassword('')
-        dispatch({
+   const onSubmit = async () => {
+      setPassword('')
+      dispatch({
             type: 'SIGN-IN',
             payload: {
-                password
+               password
             }
 
-        })
-    }
-
-    const resetPass = async () => {
-        await SecureStore.deleteItemAsync('diaryPassword')
-        dispatch({
+      })
+   }
+   const resetPass = async () => {
+      await SecureStore.deleteItemAsync('diaryPassword')
+      dispatch({
             type: 'RESET-PASS',
-        })
-    }
+      })
+   }
 
-    return <View className="bg-primary h-full w-full flex justify-center px-4 items-center">
-        <Text className="text-2xl font-pextrabold text-white my-10 items-center text-center">Авторизация</Text>
-        <Image
+   return <View className="bg-primary h-full w-full flex justify-center px-4 items-center">
+      <Text className="text-2xl font-pextrabold text-white my-10 items-center text-center">Авторизация</Text>
+      <Image
             source={require("../../assets/images/diary-main.png")}
             resizeMode="contain"
             className="w-[115px] h-[115px]"
-        />
-         {/* <SvgUri
-         // source={require("../../assets/images/diary.svg")}
-         uri={`https://www.svgrepo.com/svg/498257/note-text`}
-         className="h-[115px] w-[115px]"
-         height='10%'
-         width='10%'
-         /> */}
-        <SafeAreaView className="w-full h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 focus:border-secondary flex flex-row items-center mt-7">
+      />
+      <SafeAreaView className="w-full h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 focus:border-secondary flex flex-row items-center mt-7">
             <TextInput
-                className="flex-1 text-white font-pbold text-base"
-                secureTextEntry
-                placeholder="Пароль"
-                placeholderTextColor="#7B7B8B"
-                value={password}
-                onChangeText={setPassword}
+               className="flex-1 text-white font-pbold text-base"
+               secureTextEntry
+               placeholder="Пароль"
+               placeholderTextColor="#7B7B8B"
+               value={password}
+               onChangeText={setPassword}
             />
-        </SafeAreaView>
-
-        {
+      </SafeAreaView>
+      {
             state.loginErr != undefined ? <Text className="text-3xl color-red-600">{state.loginErr}</Text> : null
-        }
-        <CustomButton
+      }
+      <CustomButton
             title='Войти'
             handlePress={onSubmit}
             containerStyles="mt-7"
             isLoading={false}
-        />
-        {/* <Button
-            title='Сброс пароля'
-            mode="contained"
-            onPress={resetPass}
-        /> */}
-    </View>
+      />
+   </View>
 }

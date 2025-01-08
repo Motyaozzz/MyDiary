@@ -34,10 +34,9 @@ export function NoteContent({ note }) {
    return <>
       <Text className="text-gray-700 w-4/5">
             {
-               showAll ? // Если showAll = true
-                  content : // То показываем весь контент
-                  preview + (canOpen ? '...' : '') // Иначе показываем первые 50 символов из текста 
-                  // + (если в тексте изначально <= 50 символов - без троеточия, иначе с троеточием)
+               showAll ?
+                  content :
+                  preview + (canOpen ? '...' : '')
             }
       </Text>
       <Images images={note.image} isOpen={showAll} />

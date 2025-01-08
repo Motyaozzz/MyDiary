@@ -1,12 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { Alert, Dimensions, Text, View, TextInput, TouchableOpacity, StyleSheet, Image, Platform } from 'react-native';
+import { Alert, Dimensions, Text, View, TextInput, StyleSheet, Platform } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import '../(tabs)/NewNote';
 import '../../global.css';
-import { NoteContent, OneNote } from './Note';
+import { OneNote } from './Note';
 import { CustomButton } from "../../components";
 
 import Constants from 'expo-constants';
@@ -181,10 +181,10 @@ const MyDiaries = () => {
                ) : (
                   <WebView
                   originWhitelist={['*']}
-                  javaScriptEnabled={true} // Включаем поддержку JavaScript
-                  domStorageEnabled={true} // Включаем хранилище DOM
-                  startInLoadingState={true} // Показываем индикатор загрузки
-                  renderLoading={() => <Text>Загрузка...</Text>} // Сообщение, пока загружается
+                  javaScriptEnabled={true}
+                  domStorageEnabled={true}
+                  startInLoadingState={true}
+                  renderLoading={() => <Text>Загрузка...</Text>}
                   className="bg-primary color-primary"
                   source={{ html: calendarHTML }}
                   />
@@ -208,12 +208,5 @@ const MyDiaries = () => {
       </View>
    );
 };
-
-const styles = StyleSheet.create({
-   container: {
-     flex: 1,
-     marginTop: Constants.statusBarHeight,
-   },
- });
 
 export default MyDiaries;

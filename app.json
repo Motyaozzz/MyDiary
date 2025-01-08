@@ -1,53 +1,53 @@
 {
-  "expo": {
-    "name": "MyDiary",
-    "slug": "diary",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "ios": {
+"expo": {
+   "name": "MyDiary",
+   "slug": "diary",
+   "version": "1.0.0",
+   "scheme": "MyDiary",
+   "orientation": "portrait",
+   "userInterfaceStyle": "automatic",
+   "newArchEnabled": true,
+   "ios": {
       "supportsTablet": true
-    },
-    "android": {
+   },
+   "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
       },
       "permissions": [
-        "INTERNET",
-        "CAMERA",
-        "ACCESS_FINE_LOCATION"
+      "INTERNET",
+      "CAMERA",
+      "ACCESS_FINE_LOCATION"
       ],
       "package": "com.motyaozzz.diary"
-    },
-    "web": {
+   },
+   "web": {
       "bundler": "metro",
       "output": "static"
-    },
-    "extra": {
+   },
+   "extra": {
       "eas": {
-        "projectId": "c414bdc7-f3c8-4668-9ce8-76196e5d0077"
+      "projectId": "c414bdc7-f3c8-4668-9ce8-76196e5d0077"
       },
       "router": {
-        "origin": false
+      "origin": false
       }
-    },
-    "plugins": [
+   },
+   "plugins": [
       "expo-router",
-      // [
-      //   "expo-splash-screen",
-      //   {
-      //    "image": "./assets/images/diary-main.png",
-      //     "imageWidth": 200,
-      //     "resizeMode": "contain",
-      //     "backgroundColor": "#000000"
-      //   }
-      // ],
+      [
+         "expo-splash-screen",
+         {
+            "image": "./assets/images/diary-main.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#000000"
+         }
+      ],
       "expo-secure-store"
-    ],
-    "experiments": {
+   ],
+   "experiments": {
       "typedRoutes": true
-    },
-    "owner": "motyaozzz"
-  }
+   },
+   "owner": "motyaozzz"
+}
 }
