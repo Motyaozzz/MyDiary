@@ -6,19 +6,19 @@ import { Tabs, Redirect } from "expo-router";
 import "../../global.css"
 
 const TabIcon = ({ icon, color, name, focused }) => {
-    return (
-        <View>
+   return (
+      <View>
             <Image
-                className="h-6 w-6"
-                source={icon}
+               className="h-6 w-6"
+               source={icon}
             />
-        </View>
-    )
+      </View>
+   )
 }
 
 
 const TabsLayout = () => {
-    return (
+   return (
          <Tabs
          screenOptions={{
          headerShown: false,
@@ -34,61 +34,61 @@ const TabsLayout = () => {
          }}
          >
             <Tabs.Screen
-                name="MyDiaries"
-                options={{
-                    title: "MyDiary",
-                    headerShown: false,
-                    display: 'none',
-                    headerBackVisible: false,
-                    unmountOnBlur: true,
-                    tabBarIcon: ({ color, focused }) => (
+               name="MyDiaries"
+               options={{
+                  title: "MyDiary",
+                  headerShown: false,
+                  display: 'none',
+                  headerBackVisible: false,
+                  unmountOnBlur: true,
+                  tabBarIcon: ({ color, focused }) => (
                         <TabIcon
-                            icon={require('../../assets/icons/diary.png')}
+                           icon={require('../../assets/icons/diary.png')}
                         />
-                    ),
-                }}
+                  ),
+               }}
             />
             <Tabs.Screen
-                name="NewNote"
-                options={{
-                    title: "NewNote",
-                    headerShown: false,
-                    headerBackVisible: false,
-                    tabBarIcon: ({ color, focused }) => (
+               name="NewNote"
+               options={{
+                  title: "NewNote",
+                  headerShown: false,
+                  headerBackVisible: false,
+                  tabBarIcon: ({ color, focused }) => (
                         <TabIcon
-                            icon={require('../../assets/icons/note.png')}
+                           icon={require('../../assets/icons/note.png')}
                         />
-                    ),
-                }}
+                  ),
+               }}
             />
             <Tabs.Screen
-                name="Profile"
-                options={{
-                    title: "Profile",
-                    headerShown: false,
-                    headerBackVisible: false,
-                    tabBarIcon: ({ color, focused }) => (
+               name="Profile"
+               options={{
+                  title: "Profile",
+                  headerShown: false,
+                  headerBackVisible: false,
+                  tabBarIcon: ({ color, focused }) => (
                         <TabIcon
-                            icon={require('../../assets/icons/profile.png')}
+                           icon={require('../../assets/icons/profile.png')}
                         />
-                    ),
-                }}
+                  ),
+               }}
             />
             <Tabs.Screen
-                name="Settings"
-                options={{
-                    title: "Settings",
-                    headerShown: false,
-                    headerBackVisible: false,
-                    tabBarIcon: ({ color, focused }) => (
+               name="Settings"
+               options={{
+                  title: "Settings",
+                  headerShown: false,
+                  headerBackVisible: false,
+                  tabBarIcon: ({ color, focused }) => (
                         <TabIcon
-                            icon={require('../../assets/icons/settings.png')}
+                           icon={require('../../assets/icons/settings.png')}
                         />
-                    ),
-                }}
+                  ),
+               }}
             />
-        </Tabs>
-    );
+      </Tabs>
+   );
 };
 
 export default TabsLayout;

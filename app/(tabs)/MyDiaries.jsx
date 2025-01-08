@@ -9,7 +9,6 @@ import '../../global.css';
 import { NoteContent, OneNote } from './Note';
 import { CustomButton } from "../../components";
 
-
 import Constants from 'expo-constants';
 
 const MyDiaries = () => {
@@ -17,8 +16,6 @@ const MyDiaries = () => {
    const [search, setSearch] = useState('');
    const [showCalendar, setShowCalendar] = useState(false); // Флаг для показа/скрытия календаря
    const [calendarHTML, setCalendarHTML] = useState('');
-
-   const calendarURL = 'https://qiuxiang.github.io/tuner/app/';
 
    const notePredicate = (note) => {
       const { content, createdAt } = note;
