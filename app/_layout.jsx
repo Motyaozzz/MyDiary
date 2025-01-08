@@ -5,7 +5,6 @@ import { useFonts } from "expo-font";
 import "../global.css";
 import { StateContextProvider } from './state/context';
 
-// Компонент RootLayout
 const RootLayout = () => {
    const [fontsLoaded, error] = useFonts({
       "Playfair-Black": require("../assets/fonts/PlayfairDisplay-Black.ttf"),
@@ -19,7 +18,6 @@ const RootLayout = () => {
    const [isReady, setIsReady] = useState(false);
 
    useEffect(() => {
-      // Искусственная задержка в 2 секунды для отображения SplashScreen
       const timer = setTimeout(() => {
          setIsReady(true);
          SplashScreen.hideAsync();

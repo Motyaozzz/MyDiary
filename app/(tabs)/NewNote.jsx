@@ -7,8 +7,6 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Notifications from 'expo-notifications';
 import { CustomButton } from "../../components";
 
-// import { areNotificationsEnabled } from '../exponot';
-
 
 const GeneralSeeds = [
    'Felix',
@@ -39,13 +37,12 @@ const NewNote = ({ navigation }) => {
       onPanResponderMove: (event, gestureState) => {
          setHeight((prevHeight) => {
             const newHeight = prevHeight + gestureState.dy;
-            return Math.max(70, Math.min(newHeight, screenHeight - 290)); // Ограничиваем высоту
+            return Math.max(70, Math.min(newHeight, screenHeight - 290));
          });
       },
       });
 
    const pickImage = async () => {
-      // Запрашиваем разрешения на доступ к галерее
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== 'granted') {
          Alert.alert('Permission Denied', 'We need access to your gallery to pick images.');
@@ -63,7 +60,6 @@ const NewNote = ({ navigation }) => {
       }
    };
 
-   // Функция сохранения заметки
    const saveNote = async () => {
       try {
          if (!note.trim()) {
@@ -71,11 +67,9 @@ const NewNote = ({ navigation }) => {
             return;
          }
 
-         // Получение существующих заметок из AsyncStorage
          const existingNotes = await AsyncStorage.getItem("notes");
          const notes = existingNotes ? JSON.parse(existingNotes) : [];
 
-         // Добавление новой заметки
          const newNote = {
             id: Date.now().toString(),
             title: note.split("\n")[0].slice(0, 15) || "Без заголовка",
@@ -86,10 +80,8 @@ const NewNote = ({ navigation }) => {
          };
          notes.push(newNote);
 
-         // Сохранение обновленного списка заметок
          await AsyncStorage.setItem("notes", JSON.stringify(notes));
 
-         // Очистка поля заметки и уведомление пользователя
          setNote("");
          setAvatar("");
          setImages([])
@@ -103,7 +95,6 @@ const NewNote = ({ navigation }) => {
             trigger: null,
          })
 
-         // Перенаправление на другой экран (например, список заметок)
          if (navigation) navigation.navigate("MyDiaries");
       } catch (error) {
          Alert.alert("Ошибка", "Не удалось сохранить заметку");
@@ -133,7 +124,6 @@ const NewNote = ({ navigation }) => {
             <ScrollView>
                <TextInput
                   style={styles.textInput}
-                  // className="text-white h-4/5 rounded-lg shadow-md"
                   placeholder="Введите текст заметки..."
                   placeholderTextColor="gray"
                   multiline
@@ -150,20 +140,6 @@ const NewNote = ({ navigation }) => {
                {...panResponder.panHandlers}
                style={styles.resizer}
             />
-
-            {/* <TextInput
-               className="text-white h-1/5 rounded-lg shadow-md"
-               placeholder="Введите ключ для иконки (любое слово)..."
-               placeholderTextColor="white"
-               multiline
-               value={avatar}
-               onChangeText={setAvatar}
-               style={{
-                  textAlignVertical: "top",
-                  color: 'white',
-               }}
-            /> */}
-            
          </View>
 
          <CustomButton
@@ -172,14 +148,12 @@ const NewNote = ({ navigation }) => {
                containerStyles="mt-4"
                isLoading={false}
          />
-
          <CustomButton
             title='Сохранить'
             handlePress={saveNote}
             containerStyles="mt-4"
             isLoading={false}
          />
-
       </View>
       </TouchableOpacity>
    );

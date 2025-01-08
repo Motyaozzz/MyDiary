@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity, TextInput, Button, Alert, Linking } from 'react-native';
-import React, { useState, useCallback, useEffect } from 'react';
+import { View, Text, TouchableOpacity, TextInput, Alert, Linking } from 'react-native';
+import React, { useState } from 'react';
 import { useFocusEffect } from "@react-navigation/native";
 import rncomm from 'react-native-communications';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -7,20 +7,18 @@ import * as SecureStore from "expo-secure-store";
 import { useStateContext } from '../state/context';
 import { CustomButton } from '../../components';
 
-import * as Notifications from 'expo-notifications';
 
-const PHONE = '89202618810';
-const MAIL = 'mikrozaим-ochen-bistro@mail.ru';
+const PHONE = '88005553535';
+const MAIL = 'mikrozaim-ochen-bistro@mail.ru';
 
 const Settings = () => {
-   const { dispatch, state } = useStateContext(); // Получаем dispatch из контекста
+   const { dispatch, state } = useStateContext();
    const [profile, setProfile] = useState(null);
    const [showPasswordForm, setShowPasswordForm] = useState(false);
    const [oldPassword, setOldPassword] = useState('');
    const [newPassword, setNewPassword] = useState('');
    const [confirmPassword, setConfirmPassword] = useState('');
    const [fail, setFail] = useState(null);
-   // const [notificationsEnabled, setNotificationsEnabled] = useState(false);
 
 
    useFocusEffect(
@@ -37,14 +35,6 @@ const Settings = () => {
          onLoadProfile();
       }, [])
    );
-
-   // useEffect(() => {
-   //    const loadNotificationStatus = async () => {
-   //       const status = await AsyncStorage.getItem('notificationsEnabled');
-   //       setNotificationsEnabled(status === 'true' || status === null); // По умолчанию включено
-   //    };
-   //    loadNotificationStatus();
-   // }, []);
 
    const mailTemplate = ({ lastName, firstName }) => {
       if (!lastName && !firstName) {

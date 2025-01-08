@@ -1,5 +1,5 @@
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import { View, Text, TextInput, Alert } from 'react-native'
+import React, { useState } from 'react'
 import { useFocusEffect } from "@react-navigation/native";
 
 import { CustomButton } from '../../components'
@@ -77,32 +77,6 @@ const ProfileForm = ({
 
    return <View className="bg-primary h-full w-full px-4 py-8 bg-gr">
       <Text className="text-2xl font-pextrabold text-white mb-4 pt-7 items-center text-center">Профиль</Text>
-
-      {/* <Text className='font-pmedium text-white mb-2 pt-7'>
-         Имя
-      </Text>
-      <View className="bg-white w-full rounded-md border">
-            <TextInput 
-            placeholder="Введите имя..."
-            placeholderTextColor="gray"
-            disabled={loading}
-            value={profile.firstName}
-            onChange={(value) => setProfile(prev => ({ ...prev, firstName: value }))}
-            />
-      </View>
-
-      <Text className='font-pmedium text-white mb-2 pt-7'>
-         Фамилия
-      </Text>
-      <View className="bg-white w-full rounded-md border mb-6">
-            <TextInput 
-            placeholder="Введите фамилию..."
-            placeholderTextColor="gray"
-            disabled={loading}
-            value={profile.lastName}
-            onChange={(value) => setProfile(prev => ({ ...prev, lastName: value }))}
-            />
-      </View> */}
       <Input
             disabled={loading}
             className='my-5'

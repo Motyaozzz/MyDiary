@@ -3,9 +3,6 @@ import * as Notifications from 'expo-notifications';
 import { useEffect } from 'react';
 import { View } from 'react-native';
 
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 Notifications.setNotificationHandler({
    handleNotification: async () => ({
       shouldShowAlert: true,
@@ -13,13 +10,6 @@ Notifications.setNotificationHandler({
       shouldSetBadge: true,
    }),
 });
-
-// // Проверка включения уведомлений
-// export async function areNotificationsEnabled() {
-//    const status = await AsyncStorage.getItem('notificationsEnabled');
-//    // console.log('status: ' + status)
-//    return status === 'true';
-// }
 
 async function registerForPushNotificationsAsync() {
    let token;
@@ -44,7 +34,6 @@ export function PushNotifications() {
       registerForPushNotificationsAsync()
          .then((token) => {
             Notifications.scheduleNotificationAsync({
-               //set the content of the notification
                content: {
                title: "Diary",
                body: "Добрый день! Давно вас ждем!",
@@ -53,7 +42,6 @@ export function PushNotifications() {
             })
          })
 }, []);
-
 
 return <View></View>
 }

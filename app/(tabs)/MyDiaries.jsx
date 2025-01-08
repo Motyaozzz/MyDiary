@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { Alert, Dimensions, Text, View, TextInput, StyleSheet, Platform } from 'react-native';
+import { Alert, Dimensions, Text, View, TextInput, Platform } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,12 +9,10 @@ import '../../global.css';
 import { OneNote } from './Note';
 import { CustomButton } from "../../components";
 
-import Constants from 'expo-constants';
-
 const MyDiaries = () => {
    const [notes, setNotes] = useState([]);
    const [search, setSearch] = useState('');
-   const [showCalendar, setShowCalendar] = useState(false); // Флаг для показа/скрытия календаря
+   const [showCalendar, setShowCalendar] = useState(false);
    const [calendarHTML, setCalendarHTML] = useState('');
 
    const notePredicate = (note) => {
@@ -38,7 +36,6 @@ const MyDiaries = () => {
    const generateCalendarHTML = (notes) => {
       const events = notes
          .filter(note => {
-            // Убедимся, что createdAt существует и является корректной датой
             const date = new Date(note.createdAt);
             return !isNaN(date.getTime());
          })
