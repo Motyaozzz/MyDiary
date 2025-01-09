@@ -7,6 +7,8 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Notifications from 'expo-notifications';
 import { CustomButton } from "../../components";
 
+import "../../global.css";
+
 
 const GeneralSeeds = [
    'Felix',

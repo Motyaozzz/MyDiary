@@ -5,7 +5,7 @@ import { View, Text, ScrollView, Dimensions, TextInput, Image } from 'react-nati
 import { CustomButton } from "../../components";
 import { useStateContext } from '../state/context'
 
-import { SvgUri } from "react-native-svg";
+import "../../global.css";
 
 export const SignUp = () => {
    const { dispatch, state } = useStateContext()
@@ -37,12 +37,8 @@ export const SignUp = () => {
                         resizeMode="contain"
                         className="w-[115px] h-[115px]"
                   />
-                  <SvgUri
-                  source={require("../../assets/images/diary.svg")}
-                  uri={require("../../assets/images/diary.svg")}
-                  />
 
-                  <View className="w-full h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 focus:border-secondary flex flex-row items-center mt-7">
+                  <View className="w-4/5 h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 focus:border-accent flex flex-row items-center mt-7">
                         <TextInput
                            className="flex-1 text-white font-pbold text-base"
                            secureTextEntry
@@ -55,11 +51,11 @@ export const SignUp = () => {
                   <CustomButton
                         title='Зарегистрироваться'
                         handlePress={onSubmit}
-                        containerStyles="mt-7"
+                        containerStyles="mt-5"
                         isLoading={false}
                   />
                   {
-                        state.loginErr != undefined ? <Text className="color-red-600">{state.loginErr}</Text> : null
+                        state.loginErr != undefined ? <Text className="color-red-600 mt-5 text-xl">{state.loginErr}</Text> : null
                   }
                </View>
             </ScrollView>

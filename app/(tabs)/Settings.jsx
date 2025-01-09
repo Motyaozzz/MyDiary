@@ -6,6 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as SecureStore from "expo-secure-store";
 import { useStateContext } from '../state/context';
 import { CustomButton } from '../../components';
+import "../../global.css";
+
 
 
 const PHONE = '88005553535';
@@ -90,45 +92,6 @@ const Settings = () => {
       }
    };
 
-   // const toggleNotifications = async () => {
-   //    const newStatus = !notificationsEnabled;
-   //    setNotificationsEnabled(newStatus);
-   //    await AsyncStorage.setItem('notificationsEnabled', newStatus.toString());
-
-   //    if (newStatus) {
-   //       Alert.alert('Уведомления включены', 'Все уведомления снова активны.');
-   //    } else {
-   //       await Notifications.cancelAllScheduledNotificationsAsync(); // Отменить все уведомления
-   //       Alert.alert('Уведомления отключены', 'Все уведомления отключены.');
-   //    }
-   // };
-
-   // const scheduleDailyReminder = async () => {
-   //    // Определяем текущее время
-   //    const now = new Date();
-   
-   //    // Устанавливаем время для следующего уведомления на 22:00
-   //    const notificationTime = new Date();
-   //    notificationTime.setHours(22, 0, 0, 0);
-   
-   //    // Если текущее время уже после 22:00, назначаем уведомление на следующий день
-   //    if (now > notificationTime) {
-   //       notificationTime.setDate(notificationTime.getDate() + 1);
-   //    }
-   
-   //    // Планируем уведомление
-   //    await Notifications.scheduleNotificationAsync({
-   //       content: {
-   //          title: "Напоминание",
-   //          body: "Не забудьте зайти в приложение!",
-   //       },
-   //       trigger: {
-   //          seconds: Math.floor((notificationTime.getTime() - now.getTime()) / 1000),
-   //          repeats: true, // Указывает, что уведомление будет повторяться ежедневно
-   //       },
-   //    });
-   // };
-
    return (
       <View className="bg-primary h-full w-full px-4 py-8 bg-gr">
          <Text className="text-2xl font-pextrabold text-white mb-4 pt-7 items-center text-center">
@@ -202,18 +165,6 @@ const Settings = () => {
                      />
                   </View>
                )}
-            {/* <TouchableOpacity
-            onPress={toggleNotifications}
-            style={{
-               backgroundColor: notificationsEnabled ? 'green' : 'red',
-               padding: 15,
-               borderRadius: 10,
-            }}
-         >
-            <Text style={{ color: 'white', textAlign: 'center' }}>
-               {notificationsEnabled ? 'Отключить уведомления' : 'Включить уведомления'}
-            </Text>
-         </TouchableOpacity> */}
             </>
          )}
       </View>

@@ -1,25 +1,31 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
    // NOTE: Update this to include the paths to all of your component files.
-   content: ["./app/**/*.{js,jsx,ts,tsx}"],
+   content: [
+      "./app/*.{js,jsx,ts,tsx}",
+      "./app/**/*.{js,jsx,ts,tsx}",
+      "./components/*.{js,jsx,ts,tsx}",
+   ],
    presets: [require("nativewind/preset")],
    theme: {
       extend: {
       colors: {
-         primary: "#161622",
-         secondary: {
-            DEFAULT: "#FF9C01",
-            100: "#FF9001",
-            200: "#FF8E01",
+         primary: {
+            DEFAULT: "#161622",
+            hover: "#1d1d29",
          },
-         black: {
-            DEFAULT: "#000",
-            100: "#1E1E2D",
-            200: "#232533",
+         accent: {
+            DEFAULT: "#FF9C01",
+            hover: "#FF9001",
+         },
+         secondary: {
+            DEFAULT: "#FCFCFD",
+            hover: "F2F2F3",
          },
          gray: {
-            100: "#CDCDE0",
+            DEFAULT: "#CDCDE0",
          },
+         link: "#1e40af"
       },
       fontFamily: {
          pregular: ["Playfair-Regular", "sans-serif"],

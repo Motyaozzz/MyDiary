@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { SplashScreen, Stack } from "expo-router";
-import { Image, View, Text} from "react-native";
+import { View, Text } from "react-native";
 import { useFonts } from "expo-font";
+import LottieView from 'lottie-react-native';
 import "../global.css";
 import { StateContextProvider } from './state/context';
 
@@ -28,13 +29,18 @@ const RootLayout = () => {
 
    if (!fontsLoaded || error || !isReady) {
       return (
-         <View className="flex-1 justify-center items-center bg-white">
-            <Text className="text-secondary-100 mb-5 text-3xl font-extrabold">Welcome to MyDiary!</Text>
-            <Image
-               source={require('../assets/images/diary-main.png')}
-               className="w-[115px] h-[115px]"
-               resizeMode="contain"
-            />
+         <View className="flex-1 items-center justify-center bg-white">
+               <LottieView
+                  source={require('../assets/animations/book_lottie.json')}
+                  autoPlay
+                  loop
+                  style={{ width: 600, height: 600 }}
+               />
+               <Text
+               className="text-accent font-pbold text-5xl"
+               >
+               MyDiary
+               </Text>
          </View>
       );
    }

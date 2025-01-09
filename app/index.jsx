@@ -3,6 +3,8 @@ import { useEffect } from 'react'
 import { StateContextProvider, useStateContext } from './state/context'
 import { SignUp } from './(auth)/sign-up'
 import { SignIn } from './(auth)/sign-in'
+import "../global.css";
+
 
 import { useRouter } from 'expo-router';
 

@@ -1,5 +1,5 @@
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
-import "../global.css"
+import { ActivityIndicator, Text, TouchableHighlight, View } from "react-native";
+import "../global.css";
 
 const CustomButton = ({
 title,
@@ -7,32 +7,32 @@ handlePress,
 containerStyles,
 textStyles,
 isLoading,
+underlayColor = "#f58822",
 }) => {
 return (
-   <View 
-   >
-      <TouchableOpacity
+      <TouchableHighlight
       onPress={handlePress}
-      activeOpacity={0.7}
-      className={`bg-secondary rounded-2xl flex flex-row justify-center items-center py-4 px-4 ${containerStyles} ${
+      underlayColor={underlayColor}
+      className={`bg-accent rounded-2xl flex flex-row justify-center items-center py-4 px-4 font-pbold ${containerStyles} ${
          isLoading ? "opacity-50" : ""
       }`}
       disabled={isLoading}
-   >
-      <Text className={`text-primary font-pbold text-lg ${textStyles}`}>
-         {title}
-      </Text>
+      >
+      <View className="flex flex-row items-center">
+         <Text className={`text-primary font-pbold text-lg ${textStyles}`}>
+            {title}
+         </Text>
 
-      {isLoading && (
-         <ActivityIndicator
+         {isLoading && (
+            <ActivityIndicator
             animating={isLoading}
             color="#fff"
             size="small"
             className="ml-2"
-         />
+            />
          )}
-      </TouchableOpacity>
-   </View>
+      </View>
+      </TouchableHighlight>
 );
 };
 

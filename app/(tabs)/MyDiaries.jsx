@@ -9,6 +9,8 @@ import '../../global.css';
 import { OneNote } from './Note';
 import { CustomButton } from "../../components";
 
+import "../../global.css";
+
 const MyDiaries = () => {
    const [notes, setNotes] = useState([]);
    const [search, setSearch] = useState('');
@@ -150,7 +152,7 @@ const MyDiaries = () => {
          <Text className="text-2xl font-pextrabold text-white mb-4 pt-4 text-center">Мои записи</Text>
 
          {!showCalendar?(
-            <View className="p-1 bg-primary border-solid border-2 border-secondary rounded-lg mb-4">
+            <View className="p-1 bg-primary border-solid border-2 border-accent rounded-lg mb-4">
                <TextInput
                   className='color-white mx-4 py-0 font-psemibold'
                   placeholder="Введите для поиска..."

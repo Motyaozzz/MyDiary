@@ -4,6 +4,8 @@ import { useFocusEffect } from "@react-navigation/native";
 
 import { CustomButton } from '../../components'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import "../../global.css";
+
 
 function Input({
    label,
