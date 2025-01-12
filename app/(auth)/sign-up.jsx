@@ -3,6 +3,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, ScrollView, Dimensions, TextInput, Image } from 'react-native'
 
 import { CustomButton } from "../../components";
+import {CustomInput} from '../../components';
+
 import { useStateContext } from '../state/context'
 
 import "../../global.css";
@@ -23,42 +25,30 @@ export const SignUp = () => {
       setPassword('')
    }
 
-   return (
-      <SafeAreaView className="bg-primary h-full">
-            <ScrollView>
-               <View className="w-full flex justify-center h-full px-4 my-6 items-center"
-                  style={{
-                        minHeight: Dimensions.get("window").height - 100,
-                  }}>
-                  <Text className="text-2xl font-pextrabold text-white my-10 items-center text-center">Welcome to MyDiary</Text>
-
-                  <Image
-                        source={require("../../assets/images/diary-main.png")}
-                        resizeMode="contain"
-                        className="w-[115px] h-[115px]"
-                  />
-
-                  <View className="w-4/5 h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 focus:border-accent flex flex-row items-center mt-7">
-                        <TextInput
-                           className="flex-1 text-white font-pbold text-base"
-                           secureTextEntry
-                           placeholder="Пароль"
-                           placeholderTextColor="#7B7B8B"
-                           value={password}
-                           onChangeText={setPassword}
-                        />
-                  </View>
-                  <CustomButton
-                        title='Зарегистрироваться'
-                        handlePress={onSubmit}
-                        containerStyles="mt-5"
-                        isLoading={false}
-                  />
-                  {
-                        state.loginErr != undefined ? <Text className="color-red-600 mt-5 text-xl">{state.loginErr}</Text> : null
-                  }
-               </View>
-            </ScrollView>
-      </SafeAreaView>
-   );
+   return <View className="bg-primary h-full w-full flex justify-center items-center">
+      <Text className="text-2xl font-pregular text-black mb-10 items-center text-center">Регистрация</Text>
+      <Image
+            source={require("../../assets/images/logo.png")}
+            resizeMode="contain"
+            className="w-[171px] h-[171px]"
+      />
+      <CustomInput
+         value={password}
+         onChangeText={setPassword}
+         inputStyle="text-lg font-semibold text-gray w-4/5"
+         containerStyle="my-5 w-full"
+         placeholder="Пароль"
+         isSecure={true}
+      />
+      {
+         
+         state.loginErr != undefined ? <Text className="color-red-600 mt-5 text-xl">{state.loginErr}</Text> : null
+      }
+      <CustomButton
+            title='Зарегистрироваться'
+            handlePress={onSubmit}
+            containerStyles="mt-3 w-auto h-auto"
+            isLoading={false}
+      />
+   </View>
 }

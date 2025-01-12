@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { Alert, Dimensions, Text, View, TextInput, Platform } from 'react-native';
+import { Alert, Dimensions, Text, View, TextInput, Platform, Image, TouchableOpacity } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -16,6 +16,8 @@ const MyDiaries = () => {
    const [search, setSearch] = useState('');
    const [showCalendar, setShowCalendar] = useState(false);
    const [calendarHTML, setCalendarHTML] = useState('');
+
+   const screenWidth = Dimensions.get('window').width;
 
    const notePredicate = (note) => {
       const { content, createdAt } = note;
@@ -56,9 +58,9 @@ const MyDiaries = () => {
             <style>
                body {
                   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-                  background-color: #161622;
+                  background-color: #FFEACD;
                   height: full;
-                  color: #fff;
+                  color: #000;
                   margin: 10px;
                   padding: 0;
                }
@@ -87,7 +89,6 @@ const MyDiaries = () => {
          </html>
       `;
    };
-   
 
    useFocusEffect(
       useCallback(() => {
@@ -129,7 +130,7 @@ const MyDiaries = () => {
       }
    };
 
-   const renderHiddenItem = () => (
+   const renderHiddenItem = (data) => (
       <View
          className="bg-red-600 mb-4 rounded-lg shadow-md w-full"
          style={{
@@ -148,44 +149,63 @@ const MyDiaries = () => {
    const isEmpty = filtered.length === 0;
 
    return (
-      <View className="bg-primary h-full w-full flex justify-center px-4 py-10 items-center flex-1">
-         <Text className="text-2xl font-pextrabold text-white mb-4 pt-4 text-center">Мои записи</Text>
+      <View className="bg-primary h-full w-full flex justify-center px-4 pt-20 items-center flex-1">
+         <Text className="text-2xl font-pregular text-black mb-3 items-center text-center">Мои записи</Text>
 
-         {!showCalendar?(
-            <View className="p-1 bg-primary border-solid border-2 border-accent rounded-lg mb-4">
-               <TextInput
-                  className='color-white mx-4 py-0 font-psemibold'
-                  placeholder="Введите для поиска..."
-                  placeholderTextColor="gray"
-                  value={search}
-                  onChangeText={setSearch}
+         {/* Поле поиска и кнопка календаря */}
+         {!showCalendar && (
+            <View className="flex-row items-center mb-6">
+            <View className="flex-row items-center w-2/3 border-2 border-accent rounded-full px-4">
+               <Image
+                  source={require("../../assets/icons/search.png")}
+                  resizeMode="contain"
+                  className="w-8 h-8"
                />
+               <TextInput
+                     className="flex-1 text-gray font-pregular"
+                     placeholder="Поиск"
+                     placeholderTextColor="gray"
+                     value={search}
+                     onChangeText={setSearch}
+                  />
+               </View>
+               <TouchableOpacity onPress={() => setShowCalendar(true)} style={{ marginLeft: 10 }}>
+                  <Image
+                     source={require("../../assets/icons/calendar.png")}
+                     resizeMode="contain"
+                     style={{ width: 30, height: 30 }}
+                  />
+               </TouchableOpacity>
             </View>
-         ):(<View></View>)}
+         )}
 
-         <CustomButton
-         title={showCalendar ? 'Вернуться к списку' : 'Показать календарь'}
-         handlePress={() => {
-            setShowCalendar(!showCalendar);
-         }}
-         containerStyles="mb-5"
-         />
+         {/* Кастомная кнопка при показе календаря */}
+         {showCalendar ? (
+            <CustomButton
+               title="Вернуться к списку"
+               handlePress={() => setShowCalendar(false)}
+               containerStyles="mb-5"
+            />
+         ) : null}
+
+         {/* Контент */}
          {showCalendar ? (
             <View className="flex-1 w-full">
                {Platform.OS === 'web' ? (
                   <iframe
-                  src={calendarHTML}
-                  title="Web Tuner"
+                     src={calendarHTML}
+                     title="Calendar"
+                     style={{ width: '100%', height: '100%' }}
                   />
                ) : (
                   <WebView
-                  originWhitelist={['*']}
-                  javaScriptEnabled={true}
-                  domStorageEnabled={true}
-                  startInLoadingState={true}
-                  renderLoading={() => <Text>Загрузка...</Text>}
-                  className="bg-primary color-primary"
-                  source={{ html: calendarHTML }}
+                     originWhitelist={['*']}
+                     javaScriptEnabled={true}
+                     domStorageEnabled={true}
+                     startInLoadingState={true}
+                     renderLoading={() => <Text className="text-center h-full w-full">Загрузка...</Text>}
+                     className="bg-primary"
+                     source={{ html: calendarHTML }}
                   />
                )}
             </View>

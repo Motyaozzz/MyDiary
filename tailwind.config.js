@@ -11,19 +11,19 @@ module.exports = {
       extend: {
       colors: {
          primary: {
-            DEFAULT: "#161622",
+            DEFAULT: "#FFEACD",
             hover: "#1d1d29",
          },
          accent: {
-            DEFAULT: "#FF9C01",
-            hover: "#FF9001",
+            DEFAULT: "#F8A787",
+            hover: "#F57156",
          },
          secondary: {
-            DEFAULT: "#FCFCFD",
+            DEFAULT: "#E6563A",
             hover: "F2F2F3",
          },
          gray: {
-            DEFAULT: "#CDCDE0",
+            DEFAULT: "#AB9C89",
          },
          link: "#1e40af"
       },
@@ -39,3 +39,24 @@ module.exports = {
    },
    plugins: [],
 }
+
+
+
+// colors: {
+//    primary: {
+//       DEFAULT: "#161622",
+//       hover: "#1d1d29",
+//    },
+//    accent: {
+//       DEFAULT: "#FF9C01",
+//       hover: "#FF9001",
+//    },
+//    secondary: {
+//       DEFAULT: "#FCFCFD",
+//       hover: "F2F2F3",
+//    },
+//    gray: {
+//       DEFAULT: "#CDCDE0",
+//    },
+//    link: "#1e40af"
+// },

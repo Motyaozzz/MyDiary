@@ -5,7 +5,7 @@ import rncomm from 'react-native-communications';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as SecureStore from "expo-secure-store";
 import { useStateContext } from '../state/context';
-import { CustomButton } from '../../components';
+import { CustomButton, CustomInput } from '../../components';
 import "../../global.css";
 
 
@@ -93,8 +93,8 @@ const Settings = () => {
    };
 
    return (
-      <View className="bg-primary h-full w-full px-4 py-8 bg-gr">
-         <Text className="text-2xl font-pextrabold text-white mb-4 pt-7 items-center text-center">
+      <View className="bg-primary h-full w-full px-4 py-8">
+         <Text className="text-2xl font-pregular text-black mb-6 pt-32 items-center text-center">
             Настройки
          </Text>
          {fail && <Text className="text-red-600 text-2xl">{fail}</Text>}
@@ -102,65 +102,57 @@ const Settings = () => {
             <Text className="text-white text-2xl">Загрузка...</Text>
          ) : (
             <>
-               <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={onCall}
-                  className="p-4 bg-slate-700 mb-4 rounded-lg"
-               >
-                  <Text className="text-white text-xl">Звонок в поддержку</Text>
-               </TouchableOpacity>
-
-               <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={onSMS}
-                  className="p-4 bg-slate-700 mb-4 rounded-lg"
-               >
-                  <Text className="text-white text-xl">СМС в поддержку</Text>
-               </TouchableOpacity>
-
-               <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={onEmail}
-                  className="p-4 bg-slate-700 mb-4 rounded-lg"
-               >
-                  <Text className="text-white text-xl">Письмо в поддержку</Text>
-               </TouchableOpacity>
-
-               <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={() => setShowPasswordForm(!showPasswordForm)}
-                  className="p-4 bg-slate-700 mb-4 rounded-lg"
-               >
-                  <Text className="text-white text-xl">Смена пароля</Text>
-               </TouchableOpacity>
+               <CustomButton
+                  title={'Звонок в поддержку'}
+                  handlePress={onCall}
+                  containerStyles="p-4 mb-6 rounded-full"
+               />
+               <CustomButton
+                  title={'СМС в поддержку'}
+                  handlePress={onSMS}
+                  containerStyles="p-4 mb-6 rounded-full"
+               />
+               <CustomButton
+                  title={'Письмо в поддержку'}
+                  handlePress={onEmail}
+                  containerStyles="p-4 mb-6 rounded-full"
+               />
+               <CustomButton
+                  title={'Смена пароля'}
+                  handlePress={() => setShowPasswordForm(!showPasswordForm)}
+                  containerStyles="p-4 mb-6 rounded-full"
+               />
 
                {showPasswordForm && (
-                  <View className="p-4 bg-gray-800 rounded-lg">
-                     <TextInput
-                        placeholder="Старый пароль"
-                        secureTextEntry
-                        className="bg-white mb-2 p-3 rounded-md"
+                  <View className="items-center flex w-auto bg-primary border-solid border-2 border-accent">
+                     <CustomInput
                         value={oldPassword}
                         onChangeText={setOldPassword}
+                        isSecure={true}
+                        placeholder="Старый пароль"
+                        inputStyle="text-lg font-semibold text-gray w-4/5"
+                        containerStyle="mt-3 mb-2 w-full"
                      />
-                     <TextInput
-                        placeholder="Новый пароль"
-                        secureTextEntry
-                        className="bg-white mb-2 p-3 rounded-md"
+                     <CustomInput
                         value={newPassword}
                         onChangeText={setNewPassword}
+                        isSecure={true}
+                        placeholder="Новый пароль"
+                        inputStyle="text-lg font-semibold text-gray w-4/5"
+                        containerStyle="mb-2 w-full"
                      />
-                     <TextInput
-                        placeholder="Подтвердите новый пароль"
-                        secureTextEntry
-                        className="bg-white mb-2 p-3 rounded-md"
+                     <CustomInput
                         value={confirmPassword}
                         onChangeText={setConfirmPassword}
+                        isSecure={true}
+                        placeholder="Подтвердите новый пароль"
+                        inputStyle="text-lg font-semibold text-gray w-4/5"
+                        containerStyle="mb-3 w-full"
                      />
                      <CustomButton
                         title='Изменить пароль'
                         handlePress={handleChangePassword}
-                        containerStyles="mt-3"
+                        containerStyles="mb-4"
                         isLoading={false}
                      />
                   </View>

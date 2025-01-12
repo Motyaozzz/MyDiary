@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { useFocusEffect } from "@react-navigation/native";
 
 import { CustomButton } from '../../components'
+import {CustomInput} from '../../components';
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import "../../global.css";
 
@@ -77,33 +79,45 @@ const ProfileForm = ({
       Alert.alert("Успех", "Данные профиля сброшены");
    }
 
-   return <View className="bg-primary h-full w-full px-4 py-8 bg-gr">
-      <Text className="text-2xl font-pextrabold text-white mb-4 pt-7 items-center text-center">Профиль</Text>
-      <Input
-            disabled={loading}
-            className='my-5'
-            label='Имя'
-            value={profile.firstName}
-            onChange={(value) => setProfile(prev => ({ ...prev, firstName: value }))}
+   return <View className="bg-primary h-full w-full px-4 py-8">
+      <Text className="text-2xl font-pregular text-black mb-6 pt-32 items-center text-center">Профиль</Text>
+      
+      <CustomInput
+         label="Имя"
+         placeholder='Введите имя...'
+         disabled={loading}
+         value={profile.firstName}
+         onChangeText={(value) => setProfile(prev => ({ ...prev, firstName: value }))}
+         inputStyle="text-lg font-semibold text-black w-4/5"
+         containerStyle=""
       />
-      <Input
-            disabled={loading}
-            className='my-5'
-            label='Фамилия'
-            value={profile.lastName}
-            onChange={(value) => setProfile(prev => ({ ...prev, lastName: value }))}
+      
+      <CustomInput
+         label="Фамилия"
+         placeholder='Введите фамилию...'
+         disabled={loading}
+         value={profile.lastName}
+         onChangeText={(value) => setProfile(prev => ({ ...prev, lastName: value }))}
+         inputStyle="text-lg font-semibold text-black w-4/5"
+         containerStyle="mt-1"
       />
-      <CustomButton 
-            title='Сохранить'
-            handlePress={onEditProfile}
-            isLoading={loading}
-            containerStyles="mb-5"
-      />
-      <CustomButton 
-            title='Сбросить данные профиля'
-            handlePress={onDeleteProfile}
-            isLoading={loading_del}
-      />
+      <View className="items-center mt-3">
+         <CustomButton 
+               title='Сохранить'
+               handlePress={onEditProfile}
+               isLoading={loading}
+               containerStyles="my-5 w-4/5"
+               textStyles="px-3"
+         />
+         <CustomButton 
+               title='Сбросить данные профиля'
+               handlePress={onDeleteProfile}
+               isLoading={loading_del}
+               containerStyles="w-4/5"
+               textStyles="px-3"
+         />
+      </View>
+
       {
             fail && <Text className='color-red-500'>{fail}</Text>
       }

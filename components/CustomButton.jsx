@@ -7,19 +7,19 @@ handlePress,
 containerStyles,
 textStyles,
 isLoading,
-underlayColor = "#f58822",
+underlayColor = "#F57156",
 }) => {
 return (
       <TouchableHighlight
       onPress={handlePress}
       underlayColor={underlayColor}
-      className={`bg-accent rounded-2xl flex flex-row justify-center items-center py-4 px-4 font-pbold ${containerStyles} ${
+      className={`bg-accent rounded-full flex flex-row justify-center items-center py-4 px-4 font-pbold ${containerStyles} ${
          isLoading ? "opacity-50" : ""
       }`}
       disabled={isLoading}
       >
       <View className="flex flex-row items-center">
-         <Text className={`text-primary font-pbold text-lg ${textStyles}`}>
+         <Text className={`text-xl font-pregular ${textStyles}`}>
             {title}
          </Text>
 

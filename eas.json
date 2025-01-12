@@ -11,10 +11,10 @@
    "production": {
       "node": "18.18.0",
       "android": {
-        "buildType": "apk"
+      "buildType": "apk"
       }
-    },
-    "preview": {
+   },
+   "preview": {
       "extends": "production",
       "distribution": "internal",
       "android": {

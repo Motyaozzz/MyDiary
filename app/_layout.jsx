@@ -29,7 +29,7 @@ const RootLayout = () => {
 
    if (!fontsLoaded || error || !isReady) {
       return (
-         <View className="flex-1 items-center justify-center bg-white">
+         <View className="flex-1 items-center justify-center bg-primary">
                <LottieView
                   source={require('../assets/animations/book_lottie.json')}
                   autoPlay

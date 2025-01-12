@@ -53,8 +53,8 @@ export function NoteContent({ note }) {
 
 export function OneNote({ note }) {
 
-   return <View className="bg-white mb-4 rounded-lg shadow-md w-full flex flex-row">
-      <View className="w-4/5 ps-2 py-2">
+   return <View className="bg-primary border border-accent mb-4 rounded-lg shadow-md w-full flex flex-row">
+      <View className="w-4/5 ps-2 py-2 border-accent">
             <Text className="text-2xl font-bold text-gray-800 mb-2">
                {note.title}
             </Text>

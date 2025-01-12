@@ -1,14 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useRef, useState } from "react";
-import { StyleSheet, Alert, Keyboard, Text, TextInput, TouchableOpacity, View, Dimensions, PanResponder, Image, ScrollView } from "react-native";
-
+import { Alert, Keyboard, Text, TouchableOpacity, View, Dimensions, PanResponder, Image, ScrollView, TouchableWithoutFeedback } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
-
 import * as Notifications from 'expo-notifications';
-import { CustomButton } from "../../components";
-
+import { CustomButton, CustomInput } from "../../components";
 import "../../global.css";
-
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const GeneralSeeds = [
    'Felix',
@@ -18,31 +15,30 @@ const GeneralSeeds = [
    'ZEROROEOSAR',
    'Amina',
    'Celly'
-]
+];
 
 const getRandomSeed = () => {
-   const idx = Math.floor(Math.random() * GeneralSeeds.length)
-   return GeneralSeeds[idx]
-}
+   const idx = Math.floor(Math.random() * GeneralSeeds.length);
+   return GeneralSeeds[idx];
+};
 
 const NewNote = ({ navigation }) => {
    const [note, setNote] = useState("");
-   const [avatar, setAvatar] = useState("")
-   const ref = useRef()
-
-   const [height, setHeight] = useState(100);
+   const [avatar, setAvatar] = useState("");
    const [images, setImages] = useState([]);
+   const screenWidth = Dimensions.get('window').width;
    const screenHeight = Dimensions.get('window').height;
+   const [height, setHeight] = useState(150);
 
    const panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (event, gestureState) => {
          setHeight((prevHeight) => {
             const newHeight = prevHeight + gestureState.dy;
-            return Math.max(70, Math.min(newHeight, screenHeight - 290));
+            return Math.max(150, Math.min(newHeight, screenHeight - 400));
          });
       },
-      });
+   });
 
    const pickImage = async () => {
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -62,6 +58,10 @@ const NewNote = ({ navigation }) => {
       }
    };
 
+   const deleteImage = (index) => {
+      setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+   };
+
    const saveNote = async () => {
       try {
          if (!note.trim()) {
@@ -78,7 +78,7 @@ const NewNote = ({ navigation }) => {
             content: note,
             image: images,
             createdAt: new Date().toLocaleString(),
-            avatar: (avatar.trim() !== '') ? avatar : getRandomSeed()
+            avatar: (avatar.trim() !== '') ? avatar : getRandomSeed(),
          };
          notes.push(newNote);
 
@@ -86,7 +86,7 @@ const NewNote = ({ navigation }) => {
 
          setNote("");
          setAvatar("");
-         setImages([])
+         setImages([]);
          Alert.alert("Успех", "Заметка успешно сохранена");
 
          Notifications.scheduleNotificationAsync({
@@ -95,104 +95,81 @@ const NewNote = ({ navigation }) => {
                body: "Поздравляем с новой заметкой!",
             },
             trigger: null,
-         })
+         });
 
          if (navigation) navigation.navigate("MyDiaries");
       } catch (error) {
          Alert.alert("Ошибка", "Не удалось сохранить заметку");
          console.error(error);
       }
-   }
+   };
 
    return (
-      <TouchableOpacity
-         activeOpacity={1}
-         onPress={event => {
-            try {
-               if (event.target !== ref.current) {
-                  Keyboard.dismiss()
-               }
-            } catch (e) {
-               console.log(e)
-            }
-         }}
-      >
-         <View className="h-full w-full flex-column items-stretch justify-start px-4 py-10 bg-primary">
-         <Text className="text-2xl font-pextrabold text-white mb-4 pt-7 items-center text-center">
-            Создать запись
-         </Text>
-            <View style={[styles.textInputContainer, { height }]}>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+         <View className="bg-primary h-full w-full px-4 py-8">
+            <Text className="text-2xl font-pregular text-black mb-6 pt-32 items-center text-center">
+               Создать запись
+            </Text>
+            <View className={`w-full border border-accent rounded-lg overflow-hidden bg-primary mb-4`} style={{ height }}>
+               <ScrollView>
+                  <CustomInput
+                     value={note}
+                     onChangeText={setNote}
+                     placeholder="Введите текст заметки..."
+                     inputStyle="text-lg font-pregular bg-primary w-full border-primary"
+                     containerStyle=""
+                     multiline={true}
+                     isSecure={false}
+                  />
+                  {images.map((uri, index) => (
+                     <View key={index} style={{ position: 'relative', marginBottom: 10 }}>
+                        <Image 
+                           source={{ uri }} 
+                           style={{
+                              width: screenWidth - 40, // Задаем ширину изображения с отступами
+                              height: undefined,
+                              aspectRatio: 1, // Пропорции изображения, можно менять по своему усмотрению
+                              borderRadius: 8,
+                              marginBottom: 10,
+                           }}
+                        />
+                        <TouchableOpacity 
+                           style={{
+                              position: 'absolute', 
+                              top: 5, 
+                              right: 5, 
+                              backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+                              borderRadius: 20, 
+                              padding: 5,
+                           }} 
+                           onPress={() => deleteImage(index)}
+                        >
+                           <MaterialCommunityIcons name="close-circle" size={24} color="white" />
+                        </TouchableOpacity>
+                     </View>
+                  ))}
+               </ScrollView>
 
-            <ScrollView>
-               <TextInput
-                  style={styles.textInput}
-                  placeholder="Введите текст заметки..."
-                  placeholderTextColor="gray"
-                  multiline
-                  value={note}
-                  onChangeText={setNote}
-                  ref={ref}
+               <View {...panResponder.panHandlers} className="h-5 bg-primary border-t border-accent" />
+            </View>
+
+            <View className="items-center">
+               <CustomButton
+                  title='Добавить фото'
+                  handlePress={pickImage}
+                  containerStyles="mt-4 w-4/5"
+                  isLoading={false}
                />
-               {images.map((uri, index) => (
-               <Image key={index} source={{ uri }} style={styles.image} />
-               ))}
-            </ScrollView>
-
-            <View
-               {...panResponder.panHandlers}
-               style={styles.resizer}
-            />
+               <CustomButton
+                  title='Сохранить'
+                  handlePress={saveNote}
+                  containerStyles="mt-4 w-4/5"
+                  isLoading={false}
+               />
+            </View>
          </View>
-
-         <CustomButton
-               title='Добавить фото'
-               handlePress={pickImage}
-               containerStyles="mt-4"
-               isLoading={false}
-         />
-         <CustomButton
-            title='Сохранить'
-            handlePress={saveNote}
-            containerStyles="mt-4"
-            isLoading={false}
-         />
-      </View>
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
    );
 };
 
-const styles = StyleSheet.create({
-   container: {
-   flex: 1,
-   justifyContent: 'center',
-   alignItems: 'center',
-   backgroundColor: '#f5f5f5',
-   },
-   textInputContainer: {
-   width: '100%',
-   borderWidth: 1,
-   borderColor: '#ccc',
-   borderRadius: 5,
-   overflow: 'hidden',
-   backgroundColor: '#fff',
-   },
-   textInput: {
-   flex: 1,
-   padding: 10,
-   textAlignVertical: 'top',
-   },
-   resizer: {
-   height: 20,
-   backgroundColor: 'rgba(0, 0, 0, 0.1)',
-   borderTopWidth: 1,
-   borderColor: '#ccc',
-   },
-   image: {
-   width: 250,
-   height: 150,
-   marginVertical: 10,
-   borderRadius: 5,
-   },
-});
-
-export default NewNote
+export default NewNote;
