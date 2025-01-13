@@ -7,7 +7,7 @@ const TabIcon = ({ icon, color, name, focused }) => {
    return (
       <View>
          <Image
-            className="h-7 w-7"  // Устанавливаем размер иконок 40x40 (h-10 и w-10 = 40px)
+            className="h-7 w-7"
             source={icon}
          />
       </View>
@@ -21,7 +21,7 @@ const TabsLayout = () => {
             headerShown: false,
             tabBarActiveTintColor: '#FF9C01',
             tabBarLabelStyle: {
-               display: 'none', // Убираем текст под иконками
+               display: 'none',
             },
             headerStyle: {
                backgroundColor: '#fff',
@@ -29,12 +29,12 @@ const TabsLayout = () => {
             headerShadowVisible: false,
             headerTintColor: '#fff',
             tabBarStyle: {
-               backgroundColor: '#F3BA99', // Фон для нижнего меню
-               borderTopWidth: 2, // Толщина границы
-               borderTopColor: '#E6563A', // Цвет обводки
-               paddingBottom: 5, // Дополнительный отступ
-               height: 50, // Увеличиваем высоту Tab Bar
-               paddingTop: 5, // Добавляем немного отступ сверху
+               backgroundColor: '#F3BA99',
+               borderTopWidth: 2,
+               borderTopColor: '#E6563A',
+               paddingBottom: 5,
+               height: 50,
+               paddingTop: 5,
             },
          }}
       >

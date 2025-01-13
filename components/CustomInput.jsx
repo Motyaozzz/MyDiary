@@ -22,7 +22,7 @@ return (
          placeholderTextColor="gray"
          secureTextEntry={isSecure}
          multiline={multiline} 
-         className={`color-gray p-3 font-pregular bg-primary border-solid border border-accent focus:border-2 rounded-full flex ${inputStyle}`}
+         className={`color-black p-3 font-pregular bg-primary border-solid border border-accent focus:border-2 rounded-full flex ${inputStyle}`}
       />
       </View>
    </View>

@@ -126,9 +126,9 @@ const NewNote = ({ navigation }) => {
                         <Image 
                            source={{ uri }} 
                            style={{
-                              width: screenWidth - 40, // Задаем ширину изображения с отступами
+                              width: screenWidth - 40,
                               height: undefined,
-                              aspectRatio: 1, // Пропорции изображения, можно менять по своему усмотрению
+                              aspectRatio: 1,
                               borderRadius: 8,
                               marginBottom: 10,
                            }}

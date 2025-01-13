@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, TextInput, Alert, Linking } from 'react-native';
+import { View, Text, Alert, Linking } from 'react-native';
 import React, { useState } from 'react';
 import { useFocusEffect } from "@react-navigation/native";
 import rncomm from 'react-native-communications';
@@ -124,7 +124,7 @@ const Settings = () => {
                />
 
                {showPasswordForm && (
-                  <View className="items-center flex w-auto bg-primary border-solid border-2 border-accent">
+                  <View className="items-center flex w-auto bg-primary border-solid border-4 border-accent rounded-lg">
                      <CustomInput
                         value={oldPassword}
                         onChangeText={setOldPassword}

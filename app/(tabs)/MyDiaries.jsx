@@ -152,7 +152,6 @@ const MyDiaries = () => {
       <View className="bg-primary h-full w-full flex justify-center px-4 pt-20 items-center flex-1">
          <Text className="text-2xl font-pregular text-black mb-3 items-center text-center">Мои записи</Text>
 
-         {/* Поле поиска и кнопка календаря */}
          {!showCalendar && (
             <View className="flex-row items-center mb-6">
             <View className="flex-row items-center w-2/3 border-2 border-accent rounded-full px-4">
@@ -162,7 +161,7 @@ const MyDiaries = () => {
                   className="w-8 h-8"
                />
                <TextInput
-                     className="flex-1 text-gray font-pregular"
+                     className="flex-1 text-black font-pregular"
                      placeholder="Поиск"
                      placeholderTextColor="gray"
                      value={search}

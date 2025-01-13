@@ -63,7 +63,7 @@ export function OneNote({ note }) {
                {note.createdAt}
             </Text>
       </View>
-      <View className="w-1/5 h-24 pe-2 py-2">
+      <View className="w-1/5 h-24 pe-2 py-2 ml-2">
             <SvgUri
                width="100%"
                height="100%"
